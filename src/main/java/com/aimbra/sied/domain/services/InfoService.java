@@ -18,4 +18,8 @@ public class InfoService {
         return all;
     }
 
+    public InfoEntity save(InfoEntity entity) {
+        return repository.save(entity);
+    }
+
 }
