@@ -12,5 +12,5 @@ public class RespostaDto {
     private LocalDateTime criadoEm;
     private LocalDateTime atualizadoEm;
     private AtividadeDto atividade;
-    private AulaDto aluno;
+    private AlunoDto aluno;
 }

@@ -1,6 +1,6 @@
 package com.aimbra.sied.domain.entities;
 
-import com.aimbra.sied.security.entities.User;
+import com.aimbra.sied.security.entities.UserEntity;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,7 +15,7 @@ public class ProfessorEntity {
     private Integer id;
 
     @OneToOne
-    private User user;
+    private UserEntity user;
 
     @Column(length = 64, nullable = false)
     private String nome;
