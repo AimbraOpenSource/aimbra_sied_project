@@ -1,6 +1,6 @@
 package com.aimbra.sied.domain.entities;
 
-import com.aimbra.sied.security.entities.User;
+import com.aimbra.sied.security.entities.UserEntity;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -19,7 +19,7 @@ public class AlunoEntity {
     private String nome;
 
     @OneToOne
-    private User user;
+    private UserEntity user;
 
     @ManyToMany(mappedBy = "alunos")
     private List<TurmaEntity> turmas = new ArrayList<>();
