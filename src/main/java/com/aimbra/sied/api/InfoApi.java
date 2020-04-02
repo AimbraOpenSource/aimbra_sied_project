@@ -1,5 +1,6 @@
 package com.aimbra.sied.api;
 
+import com.aimbra.sied.business.services.impls.InfoServiceImpl;
 import com.aimbra.sied.domain.entities.InfoEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,7 @@ import java.util.List;
 public class InfoApi {
 
     @Autowired
-    private InfoService service;
+    private InfoServiceImpl service;
 
     @GetMapping
     public ResponseEntity<List<InfoEntity>> findInformation() {
