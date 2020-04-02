@@ -1,4 +1,5 @@
-package com.aimbra.sied.business.services;
+package com.aimbra.sied.business.services.impls;
+
 
 import com.aimbra.sied.domain.entities.InfoEntity;
 import com.aimbra.sied.infra.repositories.InfoRepository;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class InfoService {
+public class InfoServiceImpl {
 
     @Autowired
     private InfoRepository repository;
