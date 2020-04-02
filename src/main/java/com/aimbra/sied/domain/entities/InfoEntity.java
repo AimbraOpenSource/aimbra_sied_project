@@ -10,15 +10,15 @@ public class InfoEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    @Column(name = "title", length = 32)
+    @Column(name = "title", length = 32, nullable = false, unique = true)
     private String title;
 
-    @Column(name = "version", length = 6)
+    @Column(name = "version", length = 6, nullable = false, unique = true)
     private String version;
 
-    @Column(name = "author", length = 64)
+    @Column(name = "author", length = 64, nullable = false)
     private String author;
 
-    @Column(name = "git_repository", length = 255)
+    @Column(name = "git_repository", length = 255, nullable = false)
     private String gitRepository;
 }

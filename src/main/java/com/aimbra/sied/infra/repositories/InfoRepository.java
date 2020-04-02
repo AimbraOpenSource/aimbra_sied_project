@@ -1,4 +1,4 @@
-package com.aimbra.sied.domain.repositories;
+package com.aimbra.sied.infra.repositories;
 
 import com.aimbra.sied.domain.entities.InfoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

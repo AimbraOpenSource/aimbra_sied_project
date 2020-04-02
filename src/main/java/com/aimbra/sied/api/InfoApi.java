@@ -1,7 +1,7 @@
 package com.aimbra.sied.api;
 
 import com.aimbra.sied.domain.entities.InfoEntity;
-import com.aimbra.sied.domain.services.InfoService;
+import com.aimbra.sied.business.services.InfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

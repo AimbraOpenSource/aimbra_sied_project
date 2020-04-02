@@ -1,7 +1,7 @@
-package com.aimbra.sied.domain.services;
+package com.aimbra.sied.business.services;
 
 import com.aimbra.sied.domain.entities.InfoEntity;
-import com.aimbra.sied.domain.repositories.InfoRepository;
+import com.aimbra.sied.infra.repositories.InfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
