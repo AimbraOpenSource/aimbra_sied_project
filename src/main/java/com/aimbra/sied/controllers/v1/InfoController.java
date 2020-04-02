@@ -1,4 +1,4 @@
-package com.aimbra.sied.api;
+package com.aimbra.sied.controllers.v1;
 
 import com.aimbra.sied.business.services.impls.InfoServiceImpl;
 import com.aimbra.sied.domain.entities.InfoEntity;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/v1")
-public class InfoApi {
+public class InfoController {
 
     @Autowired
     private InfoServiceImpl service;
