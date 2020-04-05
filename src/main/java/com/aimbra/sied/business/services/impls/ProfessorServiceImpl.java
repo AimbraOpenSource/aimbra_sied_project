@@ -22,4 +22,9 @@ public class ProfessorServiceImpl implements ProfessorService {
     public List<ProfessorDto> findAll() {
         return converter.toDtoList(repository.findAll());
     }
+
+    @Override
+    public ProfessorDto save(ProfessorDto dto) {
+        return converter.toDto(repository.save(converter.toEntity(dto)));
+    }
 }
