@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class UserDto {
     private Integer id;
     private String username;
-    private String passoword;
+    private String password;
     private UserRole role;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

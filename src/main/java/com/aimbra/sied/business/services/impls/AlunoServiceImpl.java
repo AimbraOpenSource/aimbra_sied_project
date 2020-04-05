@@ -3,6 +3,7 @@ package com.aimbra.sied.business.services.impls;
 import com.aimbra.sied.business.converters.AlunoConverter;
 import com.aimbra.sied.business.services.AlunoService;
 import com.aimbra.sied.domain.dtos.AlunoDto;
+import com.aimbra.sied.domain.entities.AlunoEntity;
 import com.aimbra.sied.infra.repositories.AlunoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,5 +22,11 @@ public class AlunoServiceImpl implements AlunoService {
     @Override
     public List<AlunoDto> findAll() {
         return converter.toDtoList(repository.findAll());
+    }
+
+    @Override
+    public AlunoDto save(AlunoDto dto) {
+        AlunoEntity alunoEntity = converter.toEntity(dto);
+        return converter.toDto(alunoEntity);
     }
 }
