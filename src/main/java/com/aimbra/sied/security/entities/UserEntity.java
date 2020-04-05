@@ -15,23 +15,23 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    @Column(length = 32)
+    @Column(length = 32, unique = true, nullable = false)
     private String username;
 
-    @Column(length = 128)
-    private String passoword;
+    @Column(length = 128, nullable = false)
+    private String password;
 
-    @Column
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    @Column
+    @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    @Column
+    @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    @Column
+    @Column(nullable = false)
     private LocalDateTime lastAccessIn;
 
 }

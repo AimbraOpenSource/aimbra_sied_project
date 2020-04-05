@@ -36,12 +36,6 @@ public class AuthService {
     private UserConverter converter;
 
     @Autowired
-    private ProfessorService professorService;
-
-    @Autowired
-    private AlunoService alunoService;
-
-    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
@@ -78,34 +72,16 @@ public class AuthService {
         return payloadDto;
     }
 
-    public Pessoa register(UserRegisterDto dto) {
-        //É preciso fazer um relacionamento com aluno ou professor
-        if (dto.getAluno() != null) {
-            UserEntity userEntity = UserBuilder.create(
-                    dto.getAluno().getUser().getId(),
-                    dto.getAluno().getUser().getUsername(),
-                    Utils.encodePassoword(dto.getAluno().getUser().getPassword()),
-                    dto.getAluno().getUser().getRole(),
-                    LocalDateTime.now(),
-                    LocalDateTime.now(),
-                    LocalDateTime.now()
-            );
-            UserEntity userResponse = repository.save(userEntity);
-            dto.getAluno().setUser(converter.toDto(userResponse));
-            return alunoService.save(dto.getAluno());
-        } else {
-            UserEntity userEntity = UserBuilder.create(
-                    dto.getProfessor().getUser().getId(),
-                    dto.getProfessor().getUser().getUsername(),
-                    Utils.encodePassoword(dto.getProfessor().getUser().getPassword()),
-                    dto.getProfessor().getUser().getRole(),
-                    LocalDateTime.now(),
-                    LocalDateTime.now(),
-                    LocalDateTime.now()
-            );
-            UserEntity userResponse = repository.save(userEntity);
-            dto.getProfessor().setUser(converter.toDto(userResponse));
-            return professorService.save(dto.getProfessor());
-        }
+    public UserDto register(UserDto user) {
+        UserEntity entity = UserBuilder.create(
+                user.getId(),
+                user.getUsername(),
+                Utils.encodePassoword(user.getPassword()),
+                user.getRole(),
+                LocalDateTime.now(),
+                LocalDateTime.now(),
+                LocalDateTime.now()
+        );
+        return converter.toDto(repository.save(entity));
     }
 }

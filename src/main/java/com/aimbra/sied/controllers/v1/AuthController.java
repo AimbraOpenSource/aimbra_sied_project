@@ -1,6 +1,10 @@
 package com.aimbra.sied.controllers.v1;
 
+import com.aimbra.sied.business.services.AlunoService;
+import com.aimbra.sied.business.services.ProfessorService;
 import com.aimbra.sied.domain.Pessoa;
+import com.aimbra.sied.domain.dtos.AlunoDto;
+import com.aimbra.sied.domain.dtos.ProfessorDto;
 import com.aimbra.sied.domain.entities.RespostaEntity;
 import com.aimbra.sied.security.dtos.JwtPayloadDto;
 import com.aimbra.sied.security.dtos.UserDto;
@@ -22,7 +26,14 @@ public class AuthController {
     private AuthService authService;
 
     @Autowired
+    private ProfessorService professorService;
+
+    @Autowired
+    private AlunoService alunoService;
+
+    @Autowired
     private UserValidator validator;
+
 
     @PostMapping(path = "/login")
     public ResponseEntity<JwtPayloadDto> login(@RequestBody JwtPayloadDto payloadDto) {
@@ -30,11 +41,20 @@ public class AuthController {
         return ResponseEntity.ok(payloadDto);
     }
 
-    @PostMapping(path = "/register")
-    public ResponseEntity<Pessoa> register(@RequestBody UserRegisterDto user) {
-        validator.cannotRegister(user);
-        Pessoa pessoa = authService.register(user);
-        return ResponseEntity.ok(pessoa);
+    @PostMapping(path = "/register/professor")
+    public ResponseEntity<Pessoa> professorRegister(@RequestBody ProfessorDto dto) {
+        UserDto userDto = authService.register(dto.getUser());
+        dto.setUser(userDto);
+        dto = professorService.save(dto);
+        return ResponseEntity.ok(dto);
+    }
+
+    @PostMapping(path = "/register/aluno")
+    public ResponseEntity<Pessoa> alunoRegister(@RequestBody AlunoDto dto) {
+        UserDto userDto = authService.register(dto.getUser());
+        dto.setUser(userDto);
+        dto = alunoService.save(dto);
+        return ResponseEntity.ok(dto);
     }
 
 }
