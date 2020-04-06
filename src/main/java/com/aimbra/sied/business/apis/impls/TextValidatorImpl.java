@@ -59,6 +59,7 @@ public class TextValidatorImpl implements TextValidator {
             }
             throw new BadRequestException("This value is null");
         }
+        messageError = null;
         return this;
     }
 
@@ -70,6 +71,7 @@ public class TextValidatorImpl implements TextValidator {
             }
             throw new BadRequestException("This value is Empty");
         }
+        messageError = null;
         return this;
     }
 
@@ -82,6 +84,7 @@ public class TextValidatorImpl implements TextValidator {
             }
             throw new BadRequestException("This value is not null");
         }
+        messageError = null;
         return this;
     }
 
@@ -93,6 +96,7 @@ public class TextValidatorImpl implements TextValidator {
             }
             throw new BadRequestException("This value is not Empty");
         }
+        messageError = null;
         return this;
     }
 
@@ -104,6 +108,7 @@ public class TextValidatorImpl implements TextValidator {
             }
             throw new BadRequestException("This value is not null and not Empty");
         }
+        messageError = null;
         return this;
     }
 
@@ -115,6 +120,7 @@ public class TextValidatorImpl implements TextValidator {
             }
             throw new BadRequestException("This value is null or Empty");
         }
+        messageError = null;
         return this;
     }
 
@@ -134,6 +140,7 @@ public class TextValidatorImpl implements TextValidator {
             }
             throw new BadRequestException("The value must be between " + minLength + " and " + maxLength + " characters.");
         }
+        messageError = null;
         return this;
     }
 
@@ -149,6 +156,7 @@ public class TextValidatorImpl implements TextValidator {
             }
             throw new BadRequestException("The size is equals");
         }
+        messageError = null;
         return this;
     }
 
@@ -164,6 +172,19 @@ public class TextValidatorImpl implements TextValidator {
             }
             throw new BadRequestException("The size is equals");
         }
+        messageError = null;
+        return this;
+    }
+
+    @Override
+    public TextValidator testRegex(boolean result) {
+        if (!result) {
+            if (messageError != null) {
+                throw new BadRequestException(messageError);
+            }
+            throw new BadRequestException("Email not valid");
+        }
+        messageError = null;
         return this;
     }
 }

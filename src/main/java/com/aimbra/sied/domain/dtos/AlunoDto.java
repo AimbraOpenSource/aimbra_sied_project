@@ -2,6 +2,8 @@ package com.aimbra.sied.domain.dtos;
 
 import com.aimbra.sied.domain.Pessoa;
 import com.aimbra.sied.security.dtos.UserDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -13,4 +15,10 @@ public class AlunoDto implements Pessoa {
     private String nome;
     private UserDto user;
     private List<TurmaDto> turmas = new ArrayList<>();
+
+    @JsonIgnore
+    @JsonProperty(value = "user")
+    public UserDto getUser() {
+        return user;
+    }
 }

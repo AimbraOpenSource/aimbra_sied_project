@@ -15,4 +15,5 @@ public interface TextValidator {
     TextValidator hasInvalidLength();
     TextValidator sizeIsNotIqualsTo();
     TextValidator sizeIsIqualsTo();
+    TextValidator testRegex(boolean result);
 }

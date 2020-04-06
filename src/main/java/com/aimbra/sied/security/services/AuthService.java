@@ -1,14 +1,10 @@
 package com.aimbra.sied.security.services;
 
-import com.aimbra.sied.business.services.AlunoService;
-import com.aimbra.sied.business.services.ProfessorService;
-import com.aimbra.sied.domain.Pessoa;
 import com.aimbra.sied.domain.builders.UserBuilder;
 import com.aimbra.sied.domain.utils.Utils;
 import com.aimbra.sied.security.converters.UserConverter;
 import com.aimbra.sied.security.dtos.JwtPayloadDto;
 import com.aimbra.sied.security.dtos.UserDto;
-import com.aimbra.sied.security.dtos.UserRegisterDto;
 import com.aimbra.sied.security.entities.UserEntity;
 import com.aimbra.sied.security.exceptions.UserNotFoundException;
 import com.aimbra.sied.security.repositories.UserRepository;
