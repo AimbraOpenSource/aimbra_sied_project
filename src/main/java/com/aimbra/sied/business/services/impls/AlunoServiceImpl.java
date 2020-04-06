@@ -27,6 +27,6 @@ public class AlunoServiceImpl implements AlunoService {
     @Override
     public AlunoDto save(AlunoDto dto) {
         AlunoEntity alunoEntity = converter.toEntity(dto);
-        return converter.toDto(alunoEntity);
+        return converter.toDto(repository.save(alunoEntity));
     }
 }

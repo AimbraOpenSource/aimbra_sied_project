@@ -15,7 +15,7 @@
 	<description>Sistema Integrado de Ensino a Distância</description>
 
 	<properties>
-		<java.version>14</java.version>
+		<java.version>13</java.version>
 	</properties>
 
 	<dependencies>
@@ -100,7 +100,16 @@
 				<artifactId>heroku-maven-plugin</artifactId>
 				<version>2.0.13</version>
 			</plugin>
-		</plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>13</source>
+                    <target>13</target>
+                    <compilerArgs>--enable-preview</compilerArgs>
+                </configuration>
+            </plugin>
+        </plugins>
 	</build>
 
 	<repositories>

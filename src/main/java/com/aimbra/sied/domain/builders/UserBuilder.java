@@ -10,7 +10,8 @@ public class UserBuilder {
         UserEntity entity = new UserEntity();
         entity.setId(id);
         entity.setUsername(username);
-        entity.setPassoword(password);
+        entity.setPassword(password);
+        entity.setRole(role);
         entity.setCreatedAt(createdAt);
         entity.setUpdatedAt(updatedAt);
         entity.setLastAccessIn(lasAccessIn);

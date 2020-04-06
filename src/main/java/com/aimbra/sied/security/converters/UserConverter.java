@@ -15,8 +15,9 @@ public class UserConverter extends Converter<UserDto, UserEntity> {
             entity.setCreatedAt(fromDto.getCreatedAt());
             entity.setLastAccessIn(fromDto.getLastAccessIn());
             if (fromDto.getPassword() != null) {
-                entity.setPassoword(fromDto.getPassword());
+                entity.setPassword(fromDto.getPassword());
             }
+            entity.setEmail(fromDto.getEmail());
             entity.setRole(fromDto.getRole());
             entity.setUpdatedAt(fromDto.getUpdatedAt());
             entity.setUsername(fromDto.getUsername());
@@ -26,8 +27,9 @@ public class UserConverter extends Converter<UserDto, UserEntity> {
             dto.setId(fromEntity.getId());
             dto.setCreatedAt(fromEntity.getCreatedAt());
             dto.setLastAccessIn(fromEntity.getLastAccessIn());
-            if (fromEntity.getPassoword() != null) {
-                dto.setPassword(fromEntity.getPassoword());
+            dto.setEmail(fromEntity.getEmail());
+            if (fromEntity.getPassword() != null) {
+                dto.setPassword(fromEntity.getPassword());
             }
             dto.setRole(fromEntity.getRole());
             dto.setUpdatedAt(fromEntity.getUpdatedAt());

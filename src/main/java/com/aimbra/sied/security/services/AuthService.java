@@ -1,14 +1,10 @@
 package com.aimbra.sied.security.services;
 
-import com.aimbra.sied.business.services.AlunoService;
-import com.aimbra.sied.business.services.ProfessorService;
-import com.aimbra.sied.domain.Pessoa;
 import com.aimbra.sied.domain.builders.UserBuilder;
 import com.aimbra.sied.domain.utils.Utils;
 import com.aimbra.sied.security.converters.UserConverter;
 import com.aimbra.sied.security.dtos.JwtPayloadDto;
 import com.aimbra.sied.security.dtos.UserDto;
-import com.aimbra.sied.security.dtos.UserRegisterDto;
 import com.aimbra.sied.security.entities.UserEntity;
 import com.aimbra.sied.security.exceptions.UserNotFoundException;
 import com.aimbra.sied.security.repositories.UserRepository;
@@ -34,12 +30,6 @@ public class AuthService {
 
     @Autowired
     private UserConverter converter;
-
-    @Autowired
-    private ProfessorService professorService;
-
-    @Autowired
-    private AlunoService alunoService;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -78,34 +68,16 @@ public class AuthService {
         return payloadDto;
     }
 
-    public Pessoa register(UserRegisterDto dto) {
-        //É preciso fazer um relacionamento com aluno ou professor
-        if (dto.getAluno() != null) {
-            UserEntity userEntity = UserBuilder.create(
-                    dto.getAluno().getUser().getId(),
-                    dto.getAluno().getUser().getUsername(),
-                    Utils.encodePassoword(dto.getAluno().getUser().getPassword()),
-                    dto.getAluno().getUser().getRole(),
-                    LocalDateTime.now(),
-                    LocalDateTime.now(),
-                    LocalDateTime.now()
-            );
-            UserEntity userResponse = repository.save(userEntity);
-            dto.getAluno().setUser(converter.toDto(userResponse));
-            return alunoService.save(dto.getAluno());
-        } else {
-            UserEntity userEntity = UserBuilder.create(
-                    dto.getProfessor().getUser().getId(),
-                    dto.getProfessor().getUser().getUsername(),
-                    Utils.encodePassoword(dto.getProfessor().getUser().getPassword()),
-                    dto.getProfessor().getUser().getRole(),
-                    LocalDateTime.now(),
-                    LocalDateTime.now(),
-                    LocalDateTime.now()
-            );
-            UserEntity userResponse = repository.save(userEntity);
-            dto.getProfessor().setUser(converter.toDto(userResponse));
-            return professorService.save(dto.getProfessor());
-        }
+    public UserDto register(UserDto user) {
+        UserEntity entity = UserBuilder.create(
+                user.getId(),
+                user.getUsername(),
+                Utils.encodePassoword(user.getPassword()),
+                user.getRole(),
+                LocalDateTime.now(),
+                LocalDateTime.now(),
+                LocalDateTime.now()
+        );
+        return converter.toDto(repository.save(entity));
     }
 }

@@ -1,10 +1,15 @@
 package com.aimbra.sied.controllers.v1;
 
+import com.aimbra.sied.business.services.AlunoService;
+import com.aimbra.sied.business.services.ProfessorService;
+import com.aimbra.sied.business.validators.AlunoValidator;
+import com.aimbra.sied.business.validators.ProfessorValidator;
 import com.aimbra.sied.domain.Pessoa;
-import com.aimbra.sied.domain.entities.RespostaEntity;
+import com.aimbra.sied.domain.dtos.AlunoDto;
+import com.aimbra.sied.domain.dtos.ProfessorDto;
 import com.aimbra.sied.security.dtos.JwtPayloadDto;
 import com.aimbra.sied.security.dtos.UserDto;
-import com.aimbra.sied.security.dtos.UserRegisterDto;
+import com.aimbra.sied.security.enums.UserRole;
 import com.aimbra.sied.security.services.AuthService;
 import com.aimbra.sied.security.validators.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +27,20 @@ public class AuthController {
     private AuthService authService;
 
     @Autowired
-    private UserValidator validator;
+    private ProfessorService professorService;
+
+    @Autowired
+    private ProfessorValidator professorValidator;
+
+    @Autowired
+    private AlunoService alunoService;
+
+    @Autowired
+    private UserValidator userValidator;
+
+    @Autowired
+    private AlunoValidator alunoValidator;
+
 
     @PostMapping(path = "/login")
     public ResponseEntity<JwtPayloadDto> login(@RequestBody JwtPayloadDto payloadDto) {
@@ -30,11 +48,26 @@ public class AuthController {
         return ResponseEntity.ok(payloadDto);
     }
 
-    @PostMapping(path = "/register")
-    public ResponseEntity<Pessoa> register(@RequestBody UserRegisterDto user) {
-        validator.cannotRegister(user);
-        Pessoa pessoa = authService.register(user);
-        return ResponseEntity.ok(pessoa);
+    @PostMapping(path = "/register/professores")
+    public ResponseEntity<Pessoa> professorRegister(@RequestBody ProfessorDto dto) {
+        dto.getUser().setRole(UserRole.PROFESSOR);
+        userValidator.cannotRegister(dto.getUser());
+        UserDto userDto = authService.register(dto.getUser());
+        dto.setUser(userDto);
+        professorValidator.cannotCreate(dto);
+        dto = professorService.save(dto);
+        return ResponseEntity.ok(dto);
+    }
+
+    @PostMapping(path = "/register/alunos")
+    public ResponseEntity<Pessoa> alunoRegister(@RequestBody AlunoDto dto) {
+        dto.getUser().setRole(UserRole.ALUNO);
+        userValidator.cannotRegister(dto.getUser());
+        UserDto userDto = authService.register(dto.getUser());
+        dto.setUser(userDto);
+        alunoValidator.cannotCreate(dto);
+        dto = alunoService.save(dto);
+        return ResponseEntity.ok(dto);
     }
 
 }

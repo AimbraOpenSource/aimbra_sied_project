@@ -18,7 +18,7 @@ public class AlunoEntity {
     @Column(length = 128, nullable = false)
     private String nome;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private UserEntity user;
 
     @ManyToMany(mappedBy = "alunos")
