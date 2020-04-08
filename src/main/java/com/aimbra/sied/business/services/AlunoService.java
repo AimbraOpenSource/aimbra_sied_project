@@ -8,5 +8,6 @@ import java.util.List;
 @Service
 public interface AlunoService {
     List<AlunoDto> findAll();
+    AlunoDto findByUsername(String username);
     AlunoDto save(AlunoDto dto);
 }

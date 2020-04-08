@@ -1,4 +1,4 @@
-package com.aimbra.sied.controllers.v1;
+package com.aimbra.sied.domain.controllers.v1;
 
 import com.aimbra.sied.business.services.RecursoService;
 import com.aimbra.sied.domain.dtos.RecursoDto;

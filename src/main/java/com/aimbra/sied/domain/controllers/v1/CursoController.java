@@ -1,7 +1,7 @@
-package com.aimbra.sied.controllers.v1;
+package com.aimbra.sied.domain.controllers.v1;
 
-import com.aimbra.sied.business.services.ReuniaoService;
-import com.aimbra.sied.domain.dtos.ReuniaoDto;
+import com.aimbra.sied.business.services.CursoService;
+import com.aimbra.sied.domain.dtos.CursoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/v1/reunioes")
-public class ReuniaoController {
+@RequestMapping(path = "/api/v1/cursos")
+public class CursoController {
 
-    @Qualifier("reuniaoServiceImpl")
+    @Qualifier("cursoServiceImpl")
     @Autowired
-    private ReuniaoService service;
+    private CursoService service;
 
     @GetMapping
-    public ResponseEntity<List<ReuniaoDto>> findAll() {
+    public ResponseEntity<List<CursoDto>> findAll() {
         return ResponseEntity.ok(service.findAll());
     }
 }

@@ -9,4 +9,5 @@ import java.util.List;
 public interface ProfessorService {
     List<ProfessorDto> findAll();
     ProfessorDto save(ProfessorDto dto);
+    ProfessorDto findByUsername(String username);
 }
