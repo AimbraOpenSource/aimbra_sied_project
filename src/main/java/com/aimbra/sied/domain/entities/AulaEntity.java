@@ -3,8 +3,6 @@ package com.aimbra.sied.domain.entities;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "aulas")

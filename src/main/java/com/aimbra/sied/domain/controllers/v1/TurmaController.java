@@ -1,7 +1,7 @@
-package com.aimbra.sied.controllers.v1;
+package com.aimbra.sied.domain.controllers.v1;
 
-import com.aimbra.sied.business.services.AulaService;
-import com.aimbra.sied.domain.dtos.AulaDto;
+import com.aimbra.sied.business.services.TurmaService;
+import com.aimbra.sied.domain.dtos.TurmaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -12,15 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/v1/aulas")
-public class AulaController {
+@RequestMapping(path = "/api/v1/turmas")
+public class TurmaController {
 
-    @Qualifier("aulaServiceImpl")
+    @Qualifier("turmaServiceImpl")
     @Autowired
-    private AulaService service;
+    private TurmaService service;
 
     @GetMapping
-    public ResponseEntity<List<AulaDto>> findAll() {
+    public ResponseEntity<List<TurmaDto>> findAll() {
         return ResponseEntity.ok(service.findAll());
     }
+
 }

@@ -1,4 +1,4 @@
-package com.aimbra.sied.controllers.v1;
+package com.aimbra.sied.domain.controllers.v1;
 
 import com.aimbra.sied.business.services.AtividadeService;
 import com.aimbra.sied.domain.dtos.AtividadeDto;
