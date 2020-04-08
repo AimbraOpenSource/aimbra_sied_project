@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.aimbra</groupId>
 	<artifactId>sied</artifactId>
-	<version>0.0.16</version>
+	<version>0.0.25</version>
 	<name>sied</name>
 	<description>Sistema Integrado de Ensino a Distância</description>
 
