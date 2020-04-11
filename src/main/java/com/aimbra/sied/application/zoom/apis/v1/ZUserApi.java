@@ -1,10 +1,9 @@
-package com.aimbra.sied.application.zoom.apis.v2;
+package com.aimbra.sied.application.zoom.apis.v1;
 
 import com.aimbra.sied.domain.zoom.dtos.ZUserDto;
-import com.aimbra.sied.domain.zoom.dtos.ZUserResponseDto;
+import com.aimbra.sied.domain.zoom.dtos.responses.ZUserResponseDto;
 import com.aimbra.sied.security.zoom.interceptors.ZCredentialInterceptor;
 import com.aimbra.sied.security.zoom.models.ZAppCredentials;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +22,7 @@ public class ZUserApi {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.setInterceptors(List.of(new ZCredentialInterceptor()));
         ZUserResponseDto userResponse = restTemplate.getForObject(credentials.getUrl() + "/users", ZUserResponseDto.class);
+        assert userResponse != null;
         List<ZUserDto> users = userResponse.getUsers();
         return ResponseEntity.ok(users);
     }

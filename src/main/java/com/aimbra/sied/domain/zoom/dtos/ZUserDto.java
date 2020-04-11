@@ -25,6 +25,9 @@ public class ZUserDto {
     @JsonProperty(value = "phone_number")
     private String phoneNumber;
 
+    @JsonProperty(value = "settings")
+    private ZMeetingSettingDto settings;
+
     private String email;
     private float type;
     private float pmi;

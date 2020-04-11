@@ -1,5 +1,6 @@
-package com.aimbra.sied.domain.zoom.dtos;
+package com.aimbra.sied.domain.zoom.dtos.responses;
 
+import com.aimbra.sied.domain.zoom.dtos.ZUserDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
