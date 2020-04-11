@@ -1,7 +1,6 @@
 package com.aimbra.sied.infra.repositories;
 
-import com.aimbra.sied.domain.dtos.AlunoDto;
-import com.aimbra.sied.domain.entities.AlunoEntity;
+import com.aimbra.sied.domain.sied.entities.AlunoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

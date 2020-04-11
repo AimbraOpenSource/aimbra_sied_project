@@ -1,6 +1,6 @@
 package com.aimbra.sied.infra.repositories;
 
-import com.aimbra.sied.domain.entities.CursoEntity;
+import com.aimbra.sied.domain.sied.entities.CursoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
