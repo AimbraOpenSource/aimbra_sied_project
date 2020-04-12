@@ -1,9 +1,11 @@
 package com.aimbra.sied.domain.sied.utils;
 
+import com.aimbra.sied.domain.sied.enums.SIEDKeyType;
 import com.aimbra.sied.domain.sied.exceptions.BadRequestException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
+import java.util.Random;
 import java.util.UUID;
 
 public class Utils {
@@ -26,5 +28,16 @@ public class Utils {
 
     public static String formatLocalDateToPtBrDate(LocalDate date) {
         return date.getDayOfMonth() + "/" + date.getMonthValue() + "/" + date.getYear();
+    }
+
+    public static String getKey(SIEDKeyType type) {
+        try {
+            if (type == SIEDKeyType.TURMA) {
+                return Integer.toString(Math.abs(new Random().nextInt()), 32).substring(0, 6).toUpperCase();
+            }
+            throw new BadRequestException("Não pode gerar a chave");
+        } catch (BadRequestException e) {
+            throw new BadRequestException(e.getMessage());
+        }
     }
 }

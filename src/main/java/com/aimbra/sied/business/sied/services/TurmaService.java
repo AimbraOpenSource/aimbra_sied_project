@@ -8,4 +8,7 @@ import java.util.List;
 @Service
 public interface TurmaService {
     List<TurmaDto> findAll();
+    List<TurmaDto> findAllByUsername(String username);
+    TurmaDto create(TurmaDto turmaDto);
+    void deleteAll(List<TurmaDto> turmas);
 }

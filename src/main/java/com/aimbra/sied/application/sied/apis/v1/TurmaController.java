@@ -1,14 +1,27 @@
 package com.aimbra.sied.application.sied.apis.v1;
 
+import com.aimbra.sied.business.sied.services.ProfessorService;
 import com.aimbra.sied.business.sied.services.TurmaService;
+import com.aimbra.sied.business.sied.services.UserService;
+import com.aimbra.sied.domain.sied.builders.TurmaCreateFactory;
+import com.aimbra.sied.domain.sied.dtos.CursoDto;
+import com.aimbra.sied.domain.sied.dtos.ProfessorDto;
 import com.aimbra.sied.domain.sied.dtos.TurmaDto;
+import com.aimbra.sied.security.sied.dtos.UserDto;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.repository.query.Param;
+import org.springframework.data.web.JsonPath;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -19,9 +32,28 @@ public class TurmaController {
     @Autowired
     private TurmaService service;
 
-    @GetMapping
-    public ResponseEntity<List<TurmaDto>> findAll() {
-        return ResponseEntity.ok(service.findAll());
+    @Autowired
+    private ProfessorService professorService;
+
+    @GetMapping(value = "/professor")
+    public ResponseEntity<List<TurmaDto>> findAllByProfessorLoggedIn(@AuthenticationPrincipal UserDetails userDetails) {
+        return ResponseEntity.ok(service.findAllByUsername(userDetails.getUsername()));
+    }
+
+    @PostMapping(value = "/professor")
+    @Transactional
+    public ResponseEntity<TurmaDto> create(@RequestBody CursoDto cursoDto, @AuthenticationPrincipal UserDetails userDetails) {
+        ProfessorDto professorDto = professorService.findByUsername(userDetails.getUsername());
+        TurmaDto dto = TurmaCreateFactory.create(cursoDto, professorDto);
+        TurmaDto turmaResponse = service.create(dto);
+        return ResponseEntity.ok(turmaResponse);
+    }
+
+    @PutMapping(value = "/professor/removeAll")
+    public ResponseEntity<?> removeAll(@RequestBody List<TurmaDto> turmas, @AuthenticationPrincipal UserDetails userDetails) {
+        ProfessorDto professorDto = professorService.findByUsername(userDetails.getUsername());
+        service.deleteAll(turmas);
+        return ResponseEntity.ok(true);
     }
 
 }

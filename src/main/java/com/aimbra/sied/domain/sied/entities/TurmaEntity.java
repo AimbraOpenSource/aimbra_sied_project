@@ -18,7 +18,7 @@ public class TurmaEntity {
     @Column(length = 128, nullable = false, unique = true)
     private String senha;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private CursoEntity curso;
 
     @ManyToMany

@@ -13,6 +13,6 @@ public class CursoEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    @Column(length = 64, nullable = false, unique = true)
+    @Column(length = 64, nullable = false)
     private String nome;
 }
