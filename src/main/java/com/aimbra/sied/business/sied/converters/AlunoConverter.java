@@ -20,7 +20,6 @@ public class AlunoConverter extends Converter<AlunoDto, AlunoEntity> {
             var dto = new AlunoDto();
             dto.setId(fromEntity.getId());
             dto.setNome(fromEntity.getNome());
-            dto.setTurmas(new TurmaConverter().toDtoList(fromEntity.getTurmas()));
             dto.setUser(new UserConverter().toDto(fromEntity.getUser()));
             return dto;
         });

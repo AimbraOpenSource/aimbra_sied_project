@@ -1,9 +1,13 @@
 package com.aimbra.sied.business.sied.services.impls;
 
 import com.aimbra.sied.business.sied.converters.AlunoConverter;
+import com.aimbra.sied.business.sied.converters.TurmaConverter;
 import com.aimbra.sied.business.sied.services.AlunoService;
 import com.aimbra.sied.domain.sied.dtos.AlunoDto;
+import com.aimbra.sied.domain.sied.dtos.TurmaDto;
 import com.aimbra.sied.domain.sied.entities.AlunoEntity;
+import com.aimbra.sied.domain.sied.exceptions.TurmaNotAuthorizedException;
+import com.aimbra.sied.domain.sied.exceptions.TurmaNotFoundException;
 import com.aimbra.sied.infra.repositories.AlunoRepository;
 import com.aimbra.sied.security.sied.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +25,20 @@ public class AlunoServiceImpl implements AlunoService {
     @Autowired
     private AlunoConverter converter;
 
+    @Autowired
+    private TurmaConverter turmaConverter;
+
     @Override
     public List<AlunoDto> findAll() {
         return converter.toDtoList(repository.findAll());
+    }
+
+    @Override
+    public List<TurmaDto> findAllTurmasByUsername(String username) {
+        return repository
+                .findFirstByUser_Username(username)
+                .map(a -> turmaConverter.toDtoList(a.getTurmas()))
+                .orElseThrow(() -> new TurmaNotFoundException("turma não encontrado pelo usuário ativo."));
     }
 
     @Override

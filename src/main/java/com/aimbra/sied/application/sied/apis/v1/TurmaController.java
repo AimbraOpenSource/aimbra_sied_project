@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/api/v1/turmas")
@@ -35,9 +36,15 @@ public class TurmaController {
     @Autowired
     private ProfessorService professorService;
 
+    @GetMapping(value = "/{uuid}")
+    public ResponseEntity<TurmaDto> findByUUid(@PathVariable("uuid") String uuid) {
+        TurmaDto turmaResponse = service.findByUuid(UUID.fromString(uuid));
+        return ResponseEntity.ok(turmaResponse);
+    }
+
     @GetMapping(value = "/professor")
     public ResponseEntity<List<TurmaDto>> findAllByProfessorLoggedIn(@AuthenticationPrincipal UserDetails userDetails) {
-        return ResponseEntity.ok(service.findAllByUsername(userDetails.getUsername()));
+        return ResponseEntity.ok(service.findAllByProfessorUsername(userDetails.getUsername()));
     }
 
     @PostMapping(value = "/professor")
@@ -54,6 +61,17 @@ public class TurmaController {
         ProfessorDto professorDto = professorService.findByUsername(userDetails.getUsername());
         service.deleteAll(turmas);
         return ResponseEntity.ok(true);
+    }
+
+    @GetMapping(value = "/aluno")
+    public ResponseEntity<List<TurmaDto>> findAllByAluno(@AuthenticationPrincipal UserDetails userDetails) {
+        List<TurmaDto> turmas = service.findAllByAlunoUsername(userDetails.getUsername());
+        return ResponseEntity.ok(turmas);
+    }
+
+    @GetMapping(value = "/aluno/{uuid}")
+    public ResponseEntity<?> insertStudent(@AuthenticationPrincipal UserDetails userDetails, @PathParam("senha") String senha, @PathVariable("uuid") String uuidTurma) {
+        return ResponseEntity.ok(service.insertStudent(userDetails.getUsername(), senha, uuidTurma));
     }
 
 }

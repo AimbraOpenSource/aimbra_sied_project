@@ -4,11 +4,15 @@ import com.aimbra.sied.domain.sied.dtos.TurmaDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public interface TurmaService {
     List<TurmaDto> findAll();
-    List<TurmaDto> findAllByUsername(String username);
+    List<TurmaDto> findAllByProfessorUsername(String username);
+    List<TurmaDto> findAllByAlunoUsername(String username);
     TurmaDto create(TurmaDto turmaDto);
     void deleteAll(List<TurmaDto> turmas);
+    TurmaDto findByUuid(UUID uuid);
+    TurmaDto insertStudent(String username, String senha, String uuid);
 }
