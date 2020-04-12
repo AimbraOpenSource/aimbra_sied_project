@@ -42,6 +42,11 @@ public class TurmaController {
         return ResponseEntity.ok(turmaResponse);
     }
 
+    @GetMapping()
+    public ResponseEntity<TurmaDto> findById(@PathParam("turmaId") Integer turmaId) {
+        return ResponseEntity.ok(service.findById(turmaId));
+    }
+
     @GetMapping(value = "/professor")
     public ResponseEntity<List<TurmaDto>> findAllByProfessorLoggedIn(@AuthenticationPrincipal UserDetails userDetails) {
         return ResponseEntity.ok(service.findAllByProfessorUsername(userDetails.getUsername()));

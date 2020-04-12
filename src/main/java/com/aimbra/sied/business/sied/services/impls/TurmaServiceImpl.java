@@ -41,6 +41,11 @@ public class TurmaServiceImpl implements TurmaService {
     }
 
     @Override
+    public TurmaDto findById(Integer id) {
+        return repository.findById(id).map(t -> converter.toDto(t)).orElseThrow(() -> new TurmaNotFoundException("Turma não encontrada pelo Id"));
+    }
+
+    @Override
     public List<TurmaDto> findAllByProfessorUsername(String username) {
         return converter.toDtoList(repository.findAllByProfessor_User_Username(username));
     }

@@ -9,6 +9,7 @@ import java.util.UUID;
 @Service
 public interface TurmaService {
     List<TurmaDto> findAll();
+    TurmaDto findById(Integer id);
     List<TurmaDto> findAllByProfessorUsername(String username);
     List<TurmaDto> findAllByAlunoUsername(String username);
     TurmaDto create(TurmaDto turmaDto);

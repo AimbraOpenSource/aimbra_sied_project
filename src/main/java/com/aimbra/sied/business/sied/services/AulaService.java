@@ -8,4 +8,5 @@ import java.util.List;
 @Service
 public interface AulaService {
     List<AulaDto> findAll();
+    List<AulaDto> findAllByTurmaIdAndUserLoggedIn(Integer turmaId, String username);
 }

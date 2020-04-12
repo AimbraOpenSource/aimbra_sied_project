@@ -27,7 +27,9 @@ public class AulaConverter extends Converter<AulaDto, AulaEntity> {
             dto.setDescricao(fromEntity.getDescricao());
             dto.setObservacao(fromEntity.getObservacao());
             dto.setOrdem(fromEntity.getOrdem());
-            dto.setReuniao(new ReuniaoConverter().toDto(fromEntity.getReuniao()));
+            if (fromEntity.getReuniao() != null) {
+                dto.setReuniao(new ReuniaoConverter().toDto(fromEntity.getReuniao()));
+            }
             dto.setTemDiscursao(fromEntity.getTemDiscursao());
             dto.setTemReuniao(fromEntity.getTemReuniao());
             dto.setTitulo(fromEntity.getTitulo());

@@ -22,7 +22,9 @@ public class ReuniaoConverter extends Converter<ReuniaoDto, ReuniaoEntity> {
             return entity;
         }, fromEntity -> {
             var dto = new ReuniaoDto();
-            dto.setId(fromEntity.getId());
+            if (fromEntity.getId() != null) {
+                dto.setId(fromEntity.getId());
+            }
             dto.setDataHoraInicio(fromEntity.getDataHoraInicio());
             dto.setDescricao(fromEntity.getDescricao());
             dto.setDuracao(fromEntity.getDuracao());

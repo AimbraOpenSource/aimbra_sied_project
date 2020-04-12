@@ -22,4 +22,9 @@ public class AulaServiceImpl implements AulaService {
     public List<AulaDto> findAll() {
         return converter.toDtoList(repository.findAll());
     }
+
+    @Override
+    public List<AulaDto> findAllByTurmaIdAndUserLoggedIn(Integer turmaId, String username) {
+        return converter.toDtoList(repository.findAllByTurma_IdAndTurma_Professor_User_Username(turmaId, username));
+    }
 }
