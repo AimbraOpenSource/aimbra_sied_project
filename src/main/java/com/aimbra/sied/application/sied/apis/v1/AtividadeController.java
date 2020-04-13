@@ -5,9 +5,7 @@ import com.aimbra.sied.domain.sied.dtos.AtividadeDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +20,21 @@ public class AtividadeController {
     @GetMapping
     public ResponseEntity<List<AtividadeDto>> findAll() {
         return ResponseEntity.ok(service.findAll());
+    }
+
+    @GetMapping(path = "/{atividadeId}")
+    public ResponseEntity<AtividadeDto> findById(@PathVariable("atividadeId") Integer atividadeId) {
+        return ResponseEntity.ok(service.findById(atividadeId));
+    }
+
+    @GetMapping(path = "/aulas/{aulaId}")
+    public ResponseEntity<AtividadeDto> findByAulaId(@PathVariable("aulaId") Integer aulaId) {
+        AtividadeDto response = service.findByAulaId(aulaId);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping
+    public ResponseEntity<AtividadeDto> insert(@RequestBody AtividadeDto dto) {
+        return ResponseEntity.ok(service.insert(dto));
     }
 }

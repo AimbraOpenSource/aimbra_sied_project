@@ -14,4 +14,5 @@ public class AulaDto {
     private Boolean temDiscursao;
     private TurmaDto turma;
     private ReuniaoDto reuniao;
+    private AulaConfiguracaoDto configuracao;
 }

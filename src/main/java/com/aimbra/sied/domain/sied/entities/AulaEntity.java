@@ -40,4 +40,7 @@ public class AulaEntity {
     @OneToOne
     private ReuniaoEntity reuniao;
 
+    @OneToOne
+    private AulaConfiguracaoEntity configuracao;
+
 }

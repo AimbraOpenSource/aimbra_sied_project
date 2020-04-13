@@ -28,6 +28,11 @@ public class AulaController {
         return ResponseEntity.ok(service.findAll());
     }
 
+    @GetMapping(value = "/{aulaId}")
+    public ResponseEntity<AulaDto> findById(@PathVariable("aulaId") Integer aulaId) {
+        return ResponseEntity.ok(service.findById(aulaId));
+    }
+
     @GetMapping(value = "/turmas/{turmaId}")
     public ResponseEntity<List<AulaDto>> findAllByTurmaId(@PathVariable("turmaId") Integer turmaId, @AuthenticationPrincipal UserDetails userDetails) {
         return ResponseEntity.ok(service.findAllByTurmaIdAndUserLoggedIn(turmaId, userDetails.getUsername()));

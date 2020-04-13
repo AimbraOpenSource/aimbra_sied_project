@@ -20,6 +20,9 @@ public class AulaConverter extends Converter<AulaDto, AulaEntity> {
             entity.setTitulo(fromDto.getTitulo());
             entity.setTurma(new TurmaConverter().toEntity(fromDto.getTurma()));
             entity.setUrlVideoGravado(fromDto.getUrlVideoGravado());
+
+                entity.setConfiguracao(new AulaConfiguracaoConverter().toEntity(fromDto.getConfiguracao()));
+
             return entity;
         }, fromEntity -> {
             var dto = new AulaDto();
@@ -35,6 +38,9 @@ public class AulaConverter extends Converter<AulaDto, AulaEntity> {
             dto.setTitulo(fromEntity.getTitulo());
             dto.setTurma(new TurmaConverter().toDto(fromEntity.getTurma()));
             dto.setUrlVideoGravado(fromEntity.getUrlVideoGravado());
+
+                dto.setConfiguracao(new AulaConfiguracaoConverter().toDto(fromEntity.getConfiguracao()));
+
             return dto;
         });
     }
