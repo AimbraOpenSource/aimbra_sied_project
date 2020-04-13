@@ -14,10 +14,8 @@ import com.aimbra.sied.security.sied.services.AuthService;
 import com.aimbra.sied.security.sied.validators.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/api/v1/security/auth")
@@ -41,6 +39,11 @@ public class AuthController {
     @Autowired
     private AlunoValidator alunoValidator;
 
+    @GetMapping(path = "/logout")
+    public ResponseEntity<?> logout() {
+        SecurityContextHolder.clearContext();
+        return ResponseEntity.ok(true);
+    }
 
     @PostMapping(path = "/login")
     public ResponseEntity<JwtPayloadDto> login(@RequestBody JwtPayloadDto payloadDto) {
