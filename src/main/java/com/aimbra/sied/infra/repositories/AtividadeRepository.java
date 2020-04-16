@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface AtividadeRepository extends JpaRepository<AtividadeEntity, Integer> {
     Optional<AtividadeEntity> findByAula_Id(Integer id);
+    void removeByAula_Id(Integer id);
 }

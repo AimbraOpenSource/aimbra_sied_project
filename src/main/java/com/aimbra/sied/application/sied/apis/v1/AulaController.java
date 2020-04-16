@@ -8,11 +8,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -36,5 +35,12 @@ public class AulaController {
     @GetMapping(value = "/turmas/{turmaId}")
     public ResponseEntity<List<AulaDto>> findAllByTurmaId(@PathVariable("turmaId") Integer turmaId, @AuthenticationPrincipal UserDetails userDetails) {
         return ResponseEntity.ok(service.findAllByTurmaIdAndUserLoggedIn(turmaId, userDetails.getUsername()));
+    }
+
+    @DeleteMapping
+    @Transactional
+    public ResponseEntity<?> deleteById(@PathParam("aulaId") Integer aulaId) {
+        service.deleteById(aulaId);
+        return ResponseEntity.ok(true);
     }
 }

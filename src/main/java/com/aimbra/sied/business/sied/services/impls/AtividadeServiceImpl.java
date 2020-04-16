@@ -63,4 +63,9 @@ public class AtividadeServiceImpl implements AtividadeService {
     public AtividadeDto findByAulaId(Integer id) {
         return repository.findByAula_Id(id).map(a -> converter.toDto(a)).orElseThrow(() -> new AtividadeNotFoundException("Não fo encontrado esta atividade"));
     }
+
+    @Override
+    public void deleteByAulaId(Integer aulaId) {
+        repository.removeByAula_Id(aulaId);
+    }
 }

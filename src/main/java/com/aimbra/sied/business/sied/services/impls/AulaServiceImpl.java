@@ -1,11 +1,14 @@
 package com.aimbra.sied.business.sied.services.impls;
 
 import com.aimbra.sied.business.sied.converters.AulaConverter;
+import com.aimbra.sied.business.sied.services.AtividadeService;
 import com.aimbra.sied.business.sied.services.AulaService;
+import com.aimbra.sied.domain.sied.dtos.AtividadeDto;
 import com.aimbra.sied.domain.sied.dtos.AulaDto;
 import com.aimbra.sied.domain.sied.exceptions.AulaNotAuthorizedException;
 import com.aimbra.sied.infra.repositories.AulaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +21,10 @@ public class AulaServiceImpl implements AulaService {
 
     @Autowired
     private AulaConverter converter;
+
+    @Qualifier(value = "atividadeServiceImpl")
+    @Autowired
+    private AtividadeService atividadeService;
 
     @Override
     public List<AulaDto> findAll() {
@@ -39,4 +46,11 @@ public class AulaServiceImpl implements AulaService {
         return repository.findMaxOrderByTurmaId(turmaId)
                 .orElseThrow(() -> new AulaNotAuthorizedException("Aula não encontrada pelo Id"));
     }
+
+    @Override
+    public void deleteById(Integer id) {
+        atividadeService.deleteByAulaId(id);
+    }
+
+
 }
