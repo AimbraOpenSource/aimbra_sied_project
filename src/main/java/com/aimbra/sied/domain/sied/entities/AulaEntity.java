@@ -28,19 +28,13 @@ public class AulaEntity {
     @Column(length = 10000, nullable = false)
     private String observacao;
 
-    @Column(nullable = false)
-    private Boolean temReuniao;
-
-    @Column(nullable = false)
-    private Boolean temDiscursao;
-
     @ManyToOne
     private TurmaEntity turma;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private ReuniaoEntity reuniao;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private AulaConfiguracaoEntity configuracao;
 
 }

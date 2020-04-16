@@ -10,8 +10,6 @@ public class AulaDto {
     private String urlVideoGravado;
     private String descricao;
     private String observacao;
-    private Boolean temReuniao;
-    private Boolean temDiscursao;
     private TurmaDto turma;
     private ReuniaoDto reuniao;
     private AulaConfiguracaoDto configuracao;

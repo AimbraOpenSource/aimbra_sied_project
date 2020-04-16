@@ -15,8 +15,6 @@ public class AulaConverter extends Converter<AulaDto, AulaEntity> {
             entity.setObservacao(fromDto.getObservacao());
             entity.setOrdem(fromDto.getOrdem());
             entity.setReuniao(new ReuniaoConverter().toEntity(fromDto.getReuniao()));
-            entity.setTemDiscursao(fromDto.getTemDiscursao());
-            entity.setTemReuniao(fromDto.getTemReuniao());
             entity.setTitulo(fromDto.getTitulo());
             entity.setTurma(new TurmaConverter().toEntity(fromDto.getTurma()));
             entity.setUrlVideoGravado(fromDto.getUrlVideoGravado());
@@ -33,8 +31,6 @@ public class AulaConverter extends Converter<AulaDto, AulaEntity> {
             if (fromEntity.getReuniao() != null) {
                 dto.setReuniao(new ReuniaoConverter().toDto(fromEntity.getReuniao()));
             }
-            dto.setTemDiscursao(fromEntity.getTemDiscursao());
-            dto.setTemReuniao(fromEntity.getTemReuniao());
             dto.setTitulo(fromEntity.getTitulo());
             dto.setTurma(new TurmaConverter().toDto(fromEntity.getTurma()));
             dto.setUrlVideoGravado(fromEntity.getUrlVideoGravado());
