@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AulaServiceImpl implements AulaService {
@@ -33,18 +34,19 @@ public class AulaServiceImpl implements AulaService {
 
     @Override
     public AulaDto findById(Integer id) {
-        return repository.findById(id).map(a -> converter.toDto(a)).orElseThrow(() -> new AulaNotAuthorizedException("Aula não encontrada pelo Id"));
+        return repository.findById(id)
+                .map(a -> converter.toDto(a))
+                .orElseThrow(() -> new AulaNotAuthorizedException("Aula não encontrada pelo Id"));
     }
 
     @Override
     public List<AulaDto> findAllByTurmaIdAndUserLoggedIn(Integer turmaId, String username) {
-        return converter.toDtoList(repository.findAllByTurma_IdAndTurma_Professor_User_Username(turmaId, username));
+        return converter.toDtoList(repository.findAllByTurma_IdAndTurma_Professor_User_UsernameOrderByOrdem(turmaId, username));
     }
 
     @Override
     public Integer findMaxOrderByTurmaId(Integer turmaId) {
-        return repository.findMaxOrderByTurmaId(turmaId)
-                .orElseThrow(() -> new AulaNotAuthorizedException("Aula não encontrada pelo Id"));
+        return repository.findMaxOrderByTurmaId(turmaId).orElse(0);
     }
 
     @Override
