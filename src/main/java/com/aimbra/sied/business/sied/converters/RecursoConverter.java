@@ -14,8 +14,8 @@ public class RecursoConverter extends Converter<RecursoDto, RecursoEntity> {
             entity.setAula(new AulaConverter().toEntity(fromDto.getAula()));
             entity.setCaminho(fromDto.getCaminho());
             entity.setCriadoEm(fromDto.getCriadoEm());
-            entity.setIcone(fromDto.getIcone());
-            entity.setNome(fromDto.getNome());
+            entity.setNomeReal(fromDto.getNomeReal());
+            entity.setNomeLogico(fromDto.getNomeLogico());
             return entity;
         }, fromEntity -> {
             var dto = new RecursoDto();
@@ -24,8 +24,8 @@ public class RecursoConverter extends Converter<RecursoDto, RecursoEntity> {
             dto.setAula(new AulaConverter().toDto(fromEntity.getAula()));
             dto.setCaminho(fromEntity.getCaminho());
             dto.setCriadoEm(fromEntity.getCriadoEm());
-            dto.setIcone(fromEntity.getIcone());
-            dto.setNome(fromEntity.getNome());
+            dto.setNomeReal(fromEntity.getNomeReal());
+            dto.setNomeLogico(fromEntity.getNomeLogico());
             return dto;
         });
     }

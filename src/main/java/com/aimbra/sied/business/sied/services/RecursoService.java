@@ -8,4 +8,7 @@ import java.util.List;
 @Service
 public interface RecursoService {
     List<RecursoDto> findAll();
+    List<RecursoDto> findAllByAulaId(Integer aulaId);
+    RecursoDto findById(Integer id);
+    void deleteById(Integer id);
 }

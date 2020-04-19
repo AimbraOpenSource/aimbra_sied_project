@@ -5,6 +5,7 @@ import com.aimbra.sied.business.sied.services.AlunoService;
 import com.aimbra.sied.business.sied.services.TurmaService;
 import com.aimbra.sied.business.sied.services.UserService;
 import com.aimbra.sied.domain.sied.dtos.AlunoDto;
+import com.aimbra.sied.domain.sied.dtos.TurmaAlunoDto;
 import com.aimbra.sied.domain.sied.dtos.TurmaDto;
 import com.aimbra.sied.domain.sied.entities.TurmaEntity;
 import com.aimbra.sied.domain.sied.enums.SIEDKeyType;
@@ -51,7 +52,7 @@ public class TurmaServiceImpl implements TurmaService {
     }
 
     @Override
-    public List<TurmaDto> findAllByAlunoUsername(String username) {
+    public List<TurmaAlunoDto> findAllByAlunoUsername(String username) {
         return alunoService.findAllTurmasByUsername(username);
     }
 
@@ -82,4 +83,5 @@ public class TurmaServiceImpl implements TurmaService {
         TurmaEntity turmaEntity = repository.save(converter.toEntity(turmaDto));
         return converter.toDto(turmaEntity);
     }
+
 }

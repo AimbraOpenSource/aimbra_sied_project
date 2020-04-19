@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/v1")
-public class InfoController {
+public class InfoApi {
 
     @Autowired
     private InfoServiceImpl service;

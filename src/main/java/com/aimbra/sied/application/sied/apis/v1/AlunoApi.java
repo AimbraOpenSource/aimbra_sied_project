@@ -1,7 +1,7 @@
 package com.aimbra.sied.application.sied.apis.v1;
 
-import com.aimbra.sied.business.sied.services.ProfessorService;
-import com.aimbra.sied.domain.sied.dtos.ProfessorDto;
+import com.aimbra.sied.business.sied.services.AlunoService;
+import com.aimbra.sied.domain.sied.dtos.AlunoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -12,19 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/api/v1/professores")
-public class ProfessorController {
+@RequestMapping(path = "/api/v1/alunos")
+public class AlunoApi {
 
-    @Qualifier("professorServiceImpl")
+    @Qualifier("alunoServiceImpl")
     @Autowired
-    private ProfessorService service;
+    private AlunoService service;
 
     @GetMapping
-    public ResponseEntity<ProfessorDto> findByUserLoggedIn(@AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<AlunoDto> findByUserLoggedIn(@AuthenticationPrincipal UserDetails userDetails) {
         var username = userDetails.getUsername();
-        ProfessorDto professorResponse = service.findByUsername(username);
-        return ResponseEntity.ok(professorResponse);
+        return ResponseEntity.ok(service.findByUsername(username));
     }
-
 
 }

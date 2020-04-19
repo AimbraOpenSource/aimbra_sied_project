@@ -1,6 +1,7 @@
 package com.aimbra.sied.security.sied.dtos;
 
 
+import com.aimbra.sied.domain.sied.dtos.AlunoDto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.NoArgsConstructor;

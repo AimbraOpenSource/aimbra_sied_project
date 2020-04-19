@@ -7,9 +7,9 @@ import java.time.LocalDateTime;
 @Data
 public class RecursoDto {
     private Integer id;
-    private String nome;
+    private String nomeReal;
+    private String nomeLogico;
     private String caminho;
-    private String icone;
     private LocalDateTime criadoEm;
     private LocalDateTime atualizadoEm;
     private AulaDto aula;

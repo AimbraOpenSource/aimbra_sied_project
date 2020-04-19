@@ -14,14 +14,14 @@ public class RecursoEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    @Column(length = 255, unique = true, nullable = false)
-    private String nome;
+    @Column(nullable = false)
+    private String nomeReal;
 
-    @Column(length = 255, unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
+    private String nomeLogico;
+
+    @Column(nullable = false)
     private String caminho;
-
-    @Column(length = 32, nullable = false)
-    private String icone;
 
     @Column(nullable = false)
     private LocalDateTime criadoEm;

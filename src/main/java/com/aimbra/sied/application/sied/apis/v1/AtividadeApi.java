@@ -1,22 +1,37 @@
 package com.aimbra.sied.application.sied.apis.v1;
 
 import com.aimbra.sied.business.sied.services.AtividadeService;
+import com.aimbra.sied.business.sied.services.FileService;
 import com.aimbra.sied.domain.sied.dtos.AtividadeDto;
+import com.aimbra.sied.domain.sied.dtos.RecursoDto;
+import com.aimbra.sied.domain.sied.utils.DateDeserializer;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(path = "/api/v1/atividades")
-public class AtividadeController {
+public class AtividadeApi {
 
     @Qualifier("atividadeServiceImpl")
     @Autowired
     private AtividadeService service;
+
+    @Qualifier("fileServiceImpl")
+    @Autowired
+    private FileService fileService;
+
+    @Autowired
+    private DateDeserializer dateDeserializer;
 
     @GetMapping
     public ResponseEntity<List<AtividadeDto>> findAll() {
@@ -35,7 +50,15 @@ public class AtividadeController {
     }
 
     @PostMapping @Transactional
-    public ResponseEntity<AtividadeDto> insert(@RequestBody AtividadeDto dto) {
-        return ResponseEntity.ok(service.insert(dto));
+    public ResponseEntity<?> insert(@RequestParam MultipartFile[] files, @RequestParam String atividade, ModelMap modelMap) {
+        Gson gson = dateDeserializer.deserialize().create();
+        AtividadeDto atividadeDto = gson.fromJson(atividade, AtividadeDto.class);
+        AtividadeDto response = service.insert(atividadeDto);
+        Set<RecursoDto> recursos = new HashSet<>();
+        for(int i = 0; i < files.length; i++) {
+            RecursoDto recursoResponse = fileService.save(files[i], response.getAula());
+            recursos.add(recursoResponse);
+        }
+        return ResponseEntity.ok(atividadeDto);
     }
 }

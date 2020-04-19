@@ -6,8 +6,11 @@ import com.aimbra.sied.business.sied.services.UserService;
 import com.aimbra.sied.domain.sied.builders.TurmaCreateFactory;
 import com.aimbra.sied.domain.sied.dtos.CursoDto;
 import com.aimbra.sied.domain.sied.dtos.ProfessorDto;
+import com.aimbra.sied.domain.sied.dtos.TurmaAlunoDto;
 import com.aimbra.sied.domain.sied.dtos.TurmaDto;
+import com.aimbra.sied.domain.sied.exceptions.BadRequestException;
 import com.aimbra.sied.security.sied.dtos.UserDto;
+import com.aimbra.sied.security.sied.enums.UserRole;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -27,7 +30,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/api/v1/turmas")
-public class TurmaController {
+public class TurmaApi {
 
     @Qualifier("turmaServiceImpl")
     @Autowired
@@ -69,14 +72,17 @@ public class TurmaController {
     }
 
     @GetMapping(value = "/aluno")
-    public ResponseEntity<List<TurmaDto>> findAllByAluno(@AuthenticationPrincipal UserDetails userDetails) {
-        List<TurmaDto> turmas = service.findAllByAlunoUsername(userDetails.getUsername());
+    public ResponseEntity<List<TurmaAlunoDto>> findAllByAluno(@AuthenticationPrincipal UserDetails userDetails) {
+        List<TurmaAlunoDto> turmas = service.findAllByAlunoUsername(userDetails.getUsername());
         return ResponseEntity.ok(turmas);
     }
 
-    @GetMapping(value = "/aluno/{uuid}")
+    @GetMapping(value = "{uuid}/aluno")
     public ResponseEntity<?> insertStudent(@AuthenticationPrincipal UserDetails userDetails, @PathParam("senha") String senha, @PathVariable("uuid") String uuidTurma) {
         return ResponseEntity.ok(service.insertStudent(userDetails.getUsername(), senha, uuidTurma));
     }
+
+
+
 
 }
