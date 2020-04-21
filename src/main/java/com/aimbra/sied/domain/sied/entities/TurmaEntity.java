@@ -41,4 +41,14 @@ public class TurmaEntity {
 
     @ManyToOne
     private ProfessorEntity professor;
+
+    public void addAluno(AlunoEntity alunoEntity) {
+        alunos.add(alunoEntity);
+        alunoEntity.getTurmas().add(this);
+    }
+
+    public void removeAluno(AlunoEntity alunoEntity) {
+        alunoEntity.getTurmas().remove(this);
+        alunos.remove(alunoEntity);
+    }
 }

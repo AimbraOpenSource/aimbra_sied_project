@@ -1,7 +1,6 @@
 package com.aimbra.sied.infra.projections;
 
 import com.aimbra.sied.domain.sied.entities.AlunoEntity;
-import com.aimbra.sied.domain.sied.entities.ProfessorEntity;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.core.config.Projection;
 
@@ -26,5 +25,8 @@ public interface AlunoOfProfessorProjection {
 
     @Value("#{target.curso}")
     String getCurso();
+
+    @Value("#{target.turmaId}")
+    Integer getTurmaId();
 
 }

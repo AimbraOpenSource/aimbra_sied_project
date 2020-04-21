@@ -11,6 +11,7 @@ import com.aimbra.sied.domain.sied.entities.AlunoEntity;
 import com.aimbra.sied.domain.sied.entities.TurmaEntity;
 import com.aimbra.sied.domain.sied.exceptions.AlunoNotFoundException;
 import com.aimbra.sied.domain.sied.exceptions.BadRequestException;
+import com.aimbra.sied.domain.sied.exceptions.TurmaNotFoundException;
 import com.aimbra.sied.infra.repositories.AlunoRepository;
 import com.aimbra.sied.infra.repositories.TurmaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,12 +46,25 @@ public class InscricaoServiceImpl implements InscricaoService {
         var alunoEntity = findAlunoByUsername(username);
         var turmaEntity = findTurmaByUuid(turmaUuid);
         senhaTurmaEqualsTo(senhaTurma, turmaEntity);
-
-        turmaEntity.getAlunos().add(alunoEntity);
-        alunoEntity.getTurmas().add(turmaEntity);
-        
+        turmaEntity.addAluno(alunoEntity);
         turmaEntity = turmaRepository.save(turmaEntity);
         return turmaConverter.toDto(turmaEntity);
+    }
+
+    @Override
+    public void removeByAlunoIdAndTurmaId(Integer alunoId, Integer turmaId) {
+        AlunoEntity aluno = findAlunoById(alunoId);
+        TurmaEntity turma = findTurmaById(turmaId);
+        turma.removeAluno(aluno);
+        turmaRepository.save(turma);
+    }
+
+    private AlunoEntity findAlunoById(Integer alunoId) {
+        return alunoRepository.findById(alunoId).orElseThrow(() -> new AlunoNotFoundException("Aluno não encontrado pelo Id"));
+    }
+
+    private TurmaEntity findTurmaById(Integer turmaId) {
+        return turmaRepository.findById(turmaId).orElseThrow(() -> new TurmaNotFoundException("Turma não encontrada pelo Id"));
     }
 
     private void senhaTurmaEqualsTo(String senhaTurma, TurmaEntity turmaEntity) {
@@ -66,6 +80,6 @@ public class InscricaoServiceImpl implements InscricaoService {
     private AlunoEntity findAlunoByUsername(String username) {
         return alunoRepository
                 .findFirstByUser_Username(username)
-                .orElseThrow(() -> new AlunoNotFoundException("Aluno não encontrado pelo ID"));
+                .orElseThrow(() -> new AlunoNotFoundException("Aluno não encontrado pelo Username"));
     }
 }

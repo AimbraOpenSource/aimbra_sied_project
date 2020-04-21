@@ -10,4 +10,5 @@ public class AlunoOfProfessorDto {
     String curso;
     Integer professorId;
     String professor;
+    Integer turmaId;
 }

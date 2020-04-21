@@ -22,7 +22,8 @@ public interface AlunoRepository extends JpaRepository<AlunoEntity, Integer> {
                     "c.nome as curso," +
                     "c.id as cursoId," +
                     "p.id as professorId," +
-                    "p.nome as professor" +
+                    "p.nome as professor," +
+                    "t.id as turmaId" +
                     "   from alunos a" +
                     "   join inscricoes i on a.id = i.aluno_id" +
                     "   join turmas t on i.turma_id = t.id" +

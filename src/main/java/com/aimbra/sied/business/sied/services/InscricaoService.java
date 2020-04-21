@@ -7,6 +7,7 @@ import java.util.List;
 
 @Service
 public interface InscricaoService {
-    public List<TurmaDto> findAll();
-    public TurmaDto insertAluno(String username, String turmaUuid, String senhaTurma);
+    List<TurmaDto> findAll();
+    TurmaDto insertAluno(String username, String turmaUuid, String senhaTurma);
+    void removeByAlunoIdAndTurmaId(Integer alunoId, Integer turmaId);
 }
