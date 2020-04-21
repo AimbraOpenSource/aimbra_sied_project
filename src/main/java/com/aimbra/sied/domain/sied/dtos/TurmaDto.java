@@ -18,4 +18,15 @@ public class TurmaDto {
     private CursoDto curso;
     private ProfessorDto professor;
     private List<AlunoDto> alunos = new ArrayList<>();
+
+    public void addAluno(AlunoDto aluno) {
+        alunos.add(aluno);
+        aluno.getTurmas().add(this);
+    }
+
+    public void removealuno(AlunoDto aluno) {
+        alunos.remove(aluno);
+        aluno.getTurmas().remove(this);
+    }
+
 }

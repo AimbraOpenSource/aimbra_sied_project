@@ -21,4 +21,6 @@ public class AlunoDto implements Pessoa {
     public UserDto getUser() {
         return user;
     }
+    
+
 }

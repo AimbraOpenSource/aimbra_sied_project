@@ -27,9 +27,15 @@ public class TurmaEntity {
 
     @ManyToMany
     @JoinTable(
-            name = "inscricao",
+            name = "inscricoes",
             joinColumns = @JoinColumn(name = "turma_id"),
-            inverseJoinColumns = @JoinColumn(name = "aluno_id")
+            inverseJoinColumns = @JoinColumn(name = "aluno_id"),
+            uniqueConstraints = {
+                    @UniqueConstraint(columnNames = {
+                            "turma_id",
+                            "aluno_id"
+                    })
+            }
     )
     private List<AlunoEntity> alunos = new ArrayList<>();
 
