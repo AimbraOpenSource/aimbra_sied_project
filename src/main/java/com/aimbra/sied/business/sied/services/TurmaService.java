@@ -16,5 +16,4 @@ public interface TurmaService {
     TurmaDto create(TurmaDto turmaDto);
     void deleteAll(List<TurmaDto> turmas);
     TurmaDto findByUuid(UUID uuid);
-    TurmaDto insertStudent(String username, String senha, String uuid);
 }

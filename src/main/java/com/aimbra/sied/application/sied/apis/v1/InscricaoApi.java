@@ -5,6 +5,7 @@ import com.aimbra.sied.domain.sied.dtos.TurmaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ public class InscricaoApi {
         return ResponseEntity.ok(service.findAll());
     }
 
+    @PreAuthorize("hasRole('ALUNO')")
     @GetMapping(path = "/turmas/{uuid}")
     public ResponseEntity<TurmaDto> insertAluno(
             @PathParam("senha") String senha,

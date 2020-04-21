@@ -45,6 +45,12 @@ public class AlunoServiceImpl implements AlunoService {
     }
 
     @Override
+    public List<AlunoDto> findAllAlunosOfProfessor(String username) {
+        var alunos = repository.findAllAlunosOfProfessor(username);
+        return converter.toDtoList(alunos);
+    }
+
+    @Override
     public AlunoDto findByUsername(String username) {
         Optional<AlunoEntity> alunoResponse = repository.findFirstByUser_Username(username);
         return alunoResponse

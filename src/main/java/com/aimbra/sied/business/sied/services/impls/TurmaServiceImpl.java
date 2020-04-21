@@ -72,16 +72,4 @@ public class TurmaServiceImpl implements TurmaService {
         return repository.findFirstByUuid(uuid).map(t -> converter.toDto(t)).orElseThrow(() -> new TurmaNotFoundException("Turma não encontrada pelo UUID"));
     }
 
-    @Override
-    public TurmaDto insertStudent(String username, String senha, String uuidTurma) {
-        AlunoDto alunoResponse = alunoService.findByUsername(username);
-        TurmaDto turmaDto = findByUuid(UUID.fromString(uuidTurma));
-        if (!turmaDto.getSenha().equals(senha.toUpperCase())) {
-            throw new TurmaNotAuthorizedException("Senha da turma está inválida!");
-        }
-        turmaDto.setAlunos(List.of(alunoResponse));
-        TurmaEntity turmaEntity = repository.save(converter.toEntity(turmaDto));
-        return converter.toDto(turmaEntity);
-    }
-
 }

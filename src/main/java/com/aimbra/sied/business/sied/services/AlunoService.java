@@ -12,6 +12,7 @@ import java.util.UUID;
 public interface AlunoService {
     List<AlunoDto> findAll();
     List<TurmaAlunoDto> findAllTurmasByUsername(String username);
+    List<AlunoDto> findAllAlunosOfProfessor(String username);
     AlunoDto findByUsername(String username);
     AlunoDto save(AlunoDto dto);
     Boolean existsOnTurmaUuidAndUsername(UUID uuid, String username);

@@ -6,11 +6,13 @@ import com.aimbra.sied.domain.sied.dtos.RecursoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
 import java.util.List;
 
+@PreAuthorize("hasRole('PROFESSOR')")
 @RestController
 @RequestMapping(path = "/api/v1/recursos")
 public class RecursoApi {

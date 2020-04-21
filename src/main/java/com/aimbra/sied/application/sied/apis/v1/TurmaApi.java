@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.web.JsonPath;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,11 +51,13 @@ public class TurmaApi {
         return ResponseEntity.ok(service.findById(turmaId));
     }
 
+    @PreAuthorize("hasRole('PROFESSOR')")
     @GetMapping(value = "/professor")
     public ResponseEntity<List<TurmaDto>> findAllByProfessorLoggedIn(@AuthenticationPrincipal UserDetails userDetails) {
         return ResponseEntity.ok(service.findAllByProfessorUsername(userDetails.getUsername()));
     }
 
+    @PreAuthorize("hasRole('PROFESSOR')")
     @PostMapping(value = "/professor")
     @Transactional
     public ResponseEntity<TurmaDto> create(@RequestBody CursoDto cursoDto, @AuthenticationPrincipal UserDetails userDetails) {
@@ -64,6 +67,7 @@ public class TurmaApi {
         return ResponseEntity.ok(turmaResponse);
     }
 
+    @PreAuthorize("hasRole('PROFESSOR')")
     @PutMapping(value = "/professor/removeAll")
     public ResponseEntity<?> removeAll(@RequestBody List<TurmaDto> turmas, @AuthenticationPrincipal UserDetails userDetails) {
         ProfessorDto professorDto = professorService.findByUsername(userDetails.getUsername());
@@ -71,16 +75,13 @@ public class TurmaApi {
         return ResponseEntity.ok(true);
     }
 
+    @PreAuthorize("hasRole('ALUNO')")
     @GetMapping(value = "/aluno")
     public ResponseEntity<List<TurmaAlunoDto>> findAllByAluno(@AuthenticationPrincipal UserDetails userDetails) {
         List<TurmaAlunoDto> turmas = service.findAllByAlunoUsername(userDetails.getUsername());
         return ResponseEntity.ok(turmas);
     }
 
-    @GetMapping(value = "{uuid}/aluno")
-    public ResponseEntity<?> insertStudent(@AuthenticationPrincipal UserDetails userDetails, @PathParam("senha") String senha, @PathVariable("uuid") String uuidTurma) {
-        return ResponseEntity.ok(service.insertStudent(userDetails.getUsername(), senha, uuidTurma));
-    }
 
 
 
