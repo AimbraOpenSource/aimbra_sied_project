@@ -40,7 +40,7 @@ public class AulaServiceImpl implements AulaService {
     }
 
     @Override
-    public List<AulaDto> findAllByTurmaIdAndUserLoggedIn(Integer turmaId, String username) {
+    public List<AulaDto> findAllByTurmaIdAndProfessorUserLoggedIn(Integer turmaId, String username) {
         return converter.toDtoList(repository.findAllByTurma_IdAndTurma_Professor_User_UsernameOrderByOrdem(turmaId, username));
     }
 
@@ -52,6 +52,11 @@ public class AulaServiceImpl implements AulaService {
     @Override
     public void deleteById(Integer id) {
         atividadeService.deleteByAulaId(id);
+    }
+
+    @Override
+    public List<AulaDto> findAllByTurmaId(Integer turmaId) {
+        return converter.toDtoList(repository.findAllByTurma_Id(turmaId));
     }
 
 

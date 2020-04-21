@@ -9,7 +9,8 @@ import java.util.List;
 public interface AulaService {
     List<AulaDto> findAll();
     AulaDto findById(Integer id);
-    List<AulaDto> findAllByTurmaIdAndUserLoggedIn(Integer turmaId, String username);
+    List<AulaDto> findAllByTurmaIdAndProfessorUserLoggedIn(Integer turmaId, String username);
+    List<AulaDto> findAllByTurmaId(Integer turmaId);
     Integer findMaxOrderByTurmaId(Integer turmaId);
     void deleteById(Integer id);
 }
