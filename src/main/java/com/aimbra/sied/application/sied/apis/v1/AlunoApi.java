@@ -2,7 +2,9 @@ package com.aimbra.sied.application.sied.apis.v1;
 
 import com.aimbra.sied.business.sied.services.AlunoService;
 import com.aimbra.sied.domain.sied.dtos.AlunoDto;
+import com.aimbra.sied.domain.sied.dtos.AlunoOfProfessorDto;
 import com.aimbra.sied.domain.sied.exceptions.BadRequestException;
+import com.aimbra.sied.infra.projections.AlunoOfProfessorProjection;
 import com.aimbra.sied.security.sied.enums.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -35,8 +37,8 @@ public class AlunoApi {
 
     @PreAuthorize("hasRole('PROFESSOR')")
     @GetMapping(value = "/professores")
-    public ResponseEntity<List<AlunoDto>> findAllAlunosOfProfessor(@AuthenticationPrincipal UserDetails userDetails) {
-        List<AlunoDto> alunos = service.findAllAlunosOfProfessor(userDetails.getUsername());
+    public ResponseEntity<List<AlunoOfProfessorDto>> findAllAlunosOfProfessor(@AuthenticationPrincipal UserDetails userDetails) {
+        var alunos = service.findAllAlunosOfProfessor(userDetails.getUsername());
         return ResponseEntity.ok(alunos);
     }
 

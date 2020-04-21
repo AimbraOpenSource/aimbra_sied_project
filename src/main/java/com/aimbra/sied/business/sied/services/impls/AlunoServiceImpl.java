@@ -1,20 +1,24 @@
 package com.aimbra.sied.business.sied.services.impls;
 
 import com.aimbra.sied.business.sied.converters.AlunoConverter;
+import com.aimbra.sied.business.sied.converters.AlunoOfProfessorConverter;
 import com.aimbra.sied.business.sied.converters.TurmaAlunoConverter;
 import com.aimbra.sied.business.sied.converters.TurmaConverter;
 import com.aimbra.sied.business.sied.services.AlunoService;
 import com.aimbra.sied.domain.sied.dtos.AlunoDto;
+import com.aimbra.sied.domain.sied.dtos.AlunoOfProfessorDto;
 import com.aimbra.sied.domain.sied.dtos.TurmaAlunoDto;
 import com.aimbra.sied.domain.sied.dtos.TurmaDto;
 import com.aimbra.sied.domain.sied.entities.AlunoEntity;
 import com.aimbra.sied.domain.sied.exceptions.TurmaNotAuthorizedException;
 import com.aimbra.sied.domain.sied.exceptions.TurmaNotFoundException;
+import com.aimbra.sied.infra.projections.AlunoOfProfessorProjection;
 import com.aimbra.sied.infra.repositories.AlunoRepository;
 import com.aimbra.sied.security.sied.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -31,6 +35,9 @@ public class AlunoServiceImpl implements AlunoService {
     @Autowired
     private TurmaAlunoConverter turmaAlunoConverter;
 
+    @Autowired
+    private AlunoOfProfessorConverter alunoOfProfessorConverter;
+
     @Override
     public List<AlunoDto> findAll() {
         return converter.toDtoList(repository.findAll());
@@ -45,9 +52,9 @@ public class AlunoServiceImpl implements AlunoService {
     }
 
     @Override
-    public List<AlunoDto> findAllAlunosOfProfessor(String username) {
-        var alunos = repository.findAllAlunosOfProfessor(username);
-        return converter.toDtoList(alunos);
+    public List<AlunoOfProfessorDto> findAllAlunosOfProfessor(String username) {
+        List<AlunoOfProfessorProjection> allAlunosOfProfessor = repository.findAllAlunosOfProfessor(username);
+        return alunoOfProfessorConverter.toDtoList(allAlunosOfProfessor);
     }
 
     @Override
