@@ -40,6 +40,11 @@ public class RespostaServiceImpl implements RespostaService {
         return converter.toDtoList(repository.findAll());
     }
 
+    /**
+     * TODO Problema na conversão de usuarios em um cascata enorme
+     * @param respostaDto
+     * @return
+     */
     @Override
     public RespostaDto save(RespostaDto respostaDto) {
         RespostaEntity entity = new RespostaEntity();
@@ -56,6 +61,11 @@ public class RespostaServiceImpl implements RespostaService {
         return respostaDto;
     }
 
+    /**
+     * TODO Problema na conversão de usuarios em um cascata enorme
+     * @param respostaDto
+     * @return
+     */
     @Override
     public RespostaDto update(RespostaDto respostaDto) {
         RespostaEntity entity = new RespostaEntity();
