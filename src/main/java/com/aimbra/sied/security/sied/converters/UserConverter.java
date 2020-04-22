@@ -11,9 +11,15 @@ public class UserConverter extends Converter<UserDto, UserEntity> {
     public UserConverter() {
         super(fromDto -> {
             var entity = new UserEntity();
-            entity.setId(fromDto.getId());
-            entity.setCreatedAt(fromDto.getCreatedAt());
-            entity.setLastAccessIn(fromDto.getLastAccessIn());
+            if (fromDto.getId() != null) {
+                entity.setId(fromDto.getId());
+            }
+            if (fromDto.getCreatedAt() != null) {
+                entity.setCreatedAt(fromDto.getCreatedAt());
+            }
+            if (fromDto.getLastAccessIn() != null) {
+                entity.setLastAccessIn(fromDto.getLastAccessIn());
+            }
             if (fromDto.getPassword() != null) {
                 entity.setPassword(fromDto.getPassword());
             }

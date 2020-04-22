@@ -10,21 +10,48 @@ public class AulaConverter extends Converter<AulaDto, AulaEntity> {
     public AulaConverter() {
         super(fromDto -> {
             var entity = new AulaEntity();
-            entity.setId(fromDto.getId());
-            entity.setDescricao(fromDto.getDescricao());
-            entity.setObservacao(fromDto.getObservacao());
-            entity.setOrdem(fromDto.getOrdem());
-            entity.setReuniao(new ReuniaoConverter().toEntity(fromDto.getReuniao()));
-            entity.setTitulo(fromDto.getTitulo());
-            entity.setTurma(new TurmaConverter().toEntity(fromDto.getTurma()));
-            entity.setUrlVideoGravado(fromDto.getUrlVideoGravado());
+            if (fromDto.getId() != null) {
+                entity.setId(fromDto.getId());
+            }
 
+            if (fromDto.getDescricao() != null) {
+                entity.setDescricao(fromDto.getDescricao());
+            }
+
+            if (fromDto.getObservacao() != null) {
+                entity.setObservacao(fromDto.getObservacao());
+            }
+
+            if (fromDto.getOrdem() != null) {
+                entity.setOrdem(fromDto.getOrdem());
+            }
+
+            if (fromDto.getReuniao() != null) {
+                entity.setReuniao(new ReuniaoConverter().toEntity(fromDto.getReuniao()));
+            }
+
+            if (fromDto.getTitulo() != null) {
+                entity.setTitulo(fromDto.getTitulo());
+            }
+
+            if (fromDto.getTurma() != null) {
+                entity.setTurma(new TurmaConverter().toEntity(fromDto.getTurma()));
+            }
+
+            if (fromDto.getUrlVideoGravado() != null) {
+                entity.setUrlVideoGravado(fromDto.getUrlVideoGravado());
+            }
+
+            if (fromDto.getUrlVideoGravado() != null) {
                 entity.setConfiguracao(new AulaConfiguracaoConverter().toEntity(fromDto.getConfiguracao()));
+            }
 
             return entity;
         }, fromEntity -> {
             var dto = new AulaDto();
-            dto.setId(fromEntity.getId());
+            if (fromEntity.getId() != null) {
+                dto.setId(fromEntity.getId());
+            }
             dto.setDescricao(fromEntity.getDescricao());
             dto.setObservacao(fromEntity.getObservacao());
             dto.setOrdem(fromEntity.getOrdem());

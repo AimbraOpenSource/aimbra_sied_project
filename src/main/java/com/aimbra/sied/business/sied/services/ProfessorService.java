@@ -10,4 +10,5 @@ public interface ProfessorService {
     List<ProfessorDto> findAll();
     ProfessorDto save(ProfessorDto dto);
     ProfessorDto findByUsername(String username);
+    ProfessorDto findById(Integer id);
 }

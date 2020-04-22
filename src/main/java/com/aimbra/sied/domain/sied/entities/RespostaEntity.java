@@ -6,7 +6,12 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "respostas")
+@Table(name = "respostas", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {
+                "atividade_id",
+                "aluno_id"
+        })
+})
 @Data
 public class RespostaEntity {
 

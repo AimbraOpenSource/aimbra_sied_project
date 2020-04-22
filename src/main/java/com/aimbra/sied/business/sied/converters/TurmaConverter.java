@@ -15,10 +15,18 @@ public class TurmaConverter extends Converter<TurmaDto, TurmaEntity> {
             if (fromDto.getUuid() != null) {
                 entity.setUuid(UUID.fromString(fromDto.getUuid()));
             }
-            entity.setAlunos(new AlunoConverter().toEntityList(fromDto.getAlunos()));
-            entity.setCurso(new CursoConverter().toEntity(fromDto.getCurso()));
-            entity.setProfessor(new ProfessorConverter().toEntity(fromDto.getProfessor()));
-            entity.setSenha(fromDto.getSenha());
+            if (fromDto.getAlunos() != null) {
+                entity.setAlunos(new AlunoConverter().toEntityList(fromDto.getAlunos()));
+            }
+            if (fromDto.getCurso() != null) {
+                entity.setCurso(new CursoConverter().toEntity(fromDto.getCurso()));
+            }
+            if (fromDto.getProfessor() != null) {
+                entity.setProfessor(new ProfessorConverter().toEntity(fromDto.getProfessor()));
+            }
+            if (fromDto.getSenha() != null) {
+                entity.setSenha(fromDto.getSenha());
+            }
             return entity;
         }, fromEntity -> {
             var dto = new TurmaDto();

@@ -1,6 +1,5 @@
 package com.aimbra.sied.business.sied.services.impls;
 
-import com.aimbra.sied.application.zoom.apis.v1.ZResponseApi;
 import com.aimbra.sied.business.sied.converters.RecursoConverter;
 import com.aimbra.sied.domain.sied.builders.RecursoBuilder;
 import com.aimbra.sied.domain.sied.dtos.AulaDto;
