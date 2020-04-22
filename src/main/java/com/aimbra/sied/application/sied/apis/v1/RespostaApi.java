@@ -7,11 +7,13 @@ import com.aimbra.sied.domain.sied.dtos.RespostaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -26,11 +28,13 @@ public class RespostaApi {
     @Autowired
     private AlunoService alunoService;
 
+    @PreAuthorize("hasRole('PROFESSOR')")
     @GetMapping
-    public ResponseEntity<List<RespostaDto>> findAll() {
-        return ResponseEntity.ok(service.findAll());
+    public ResponseEntity<List<RespostaDto>> findAllByAulaId(@PathParam("aulaId") Integer aulaId) {
+        return ResponseEntity.ok(service.findAllByAulaId(aulaId));
     }
 
+    @PreAuthorize("hasRole('ALUNO')")
     @GetMapping(value = "/atividades/{id}")
     public ResponseEntity<RespostaDto> findByAtividadeIdAndUserLoggedIn(
             @PathVariable("id") Integer id,
@@ -40,6 +44,7 @@ public class RespostaApi {
         return ResponseEntity.ok(response);
     }
 
+    @PreAuthorize("hasRole('ALUNO')")
     @PostMapping
     @Transactional
     public ResponseEntity<RespostaDto> insert(
@@ -51,6 +56,7 @@ public class RespostaApi {
         return ResponseEntity.ok(respostaDto);
     }
 
+    @PreAuthorize("hasRole('ALUNO')")
     @PutMapping
     public ResponseEntity<RespostaDto> update(
             @RequestBody RespostaDto respostaDto,

@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -88,5 +90,17 @@ public class RespostaServiceImpl implements RespostaService {
         return repository.findAllByAtividadeIdAndUsername(id, username)
                 .map(a -> converter.toDto(a))
                 .orElse(null);
+    }
+
+    @Override
+    public List<RespostaDto> findByAtividadeId(Integer atividadeId) {
+        return repository.findAllByAtividade_Id(atividadeId).map(
+                a -> converter.toDtoList(a)
+        ).orElse(new ArrayList<>());
+    }
+
+    @Override
+    public List<RespostaDto> findAllByAulaId(Integer aulaId) {
+        return repository.findAllByAulaId(aulaId).map(r -> converter.toDtoList(r)).orElse(new ArrayList<>());
     }
 }
