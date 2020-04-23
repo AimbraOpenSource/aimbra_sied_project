@@ -2,6 +2,7 @@ package com.aimbra.sied.business.sied.services;
 
 import com.aimbra.sied.domain.sied.dtos.AulaDto;
 import com.aimbra.sied.domain.sied.dtos.RecursoDto;
+import com.aimbra.sied.security.sied.dtos.UserDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import org.springframework.core.io.Resource;
@@ -14,10 +15,12 @@ import java.nio.file.Path;
 import java.util.stream.Stream;
 
 public interface FileService {
-    public void init();
-    public RecursoDto save(MultipartFile file, AulaDto aulaDto);
-    public Resource load(String filename);
-    public void deleteAll();
-    public void deleteByRecurso(RecursoDto recursoDto);
-    public Stream<Path> loadAll();
+    void init();
+    void initRespostaRepository();
+    RecursoDto savePerguntaDoProfessor(MultipartFile file, AulaDto aulaDto, UserDto user);
+    RecursoDto saveRespostaDoAluno(MultipartFile file, AulaDto aulaDto, UserDto user);
+    Resource load(String filename);
+    void deleteAll();
+    void deleteByRecurso(RecursoDto recursoDto);
+    Stream<Path> loadAll();
 }

@@ -2,13 +2,18 @@ package com.aimbra.sied.application.sied.apis.v1;
 
 import com.aimbra.sied.business.sied.services.AtividadeService;
 import com.aimbra.sied.business.sied.services.FileService;
+import com.aimbra.sied.business.sied.services.UserService;
+import com.aimbra.sied.business.sied.services.impls.UserServiceImpl;
 import com.aimbra.sied.domain.sied.dtos.AtividadeDto;
 import com.aimbra.sied.domain.sied.dtos.RecursoDto;
 import com.aimbra.sied.domain.sied.utils.DateDeserializer;
+import com.aimbra.sied.security.sied.dtos.UserDto;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +38,10 @@ public class AtividadeApi {
     @Autowired
     private DateDeserializer dateDeserializer;
 
+    @Qualifier("userServiceImpl")
+    @Autowired
+    private UserService userService;
+
     @GetMapping
     public ResponseEntity<List<AtividadeDto>> findAll() {
         return ResponseEntity.ok(service.findAll());
@@ -50,13 +59,18 @@ public class AtividadeApi {
     }
 
     @PostMapping @Transactional
-    public ResponseEntity<?> insert(@RequestParam MultipartFile[] files, @RequestParam String atividade, ModelMap modelMap) {
+    public ResponseEntity<?> insert(
+            @RequestParam MultipartFile[] files,
+            @RequestParam String atividade,
+            ModelMap modelMap,
+            @AuthenticationPrincipal UserDetails userDetails) {
+        UserDto userDto = userService.findByUsername(userDetails.getUsername());
         Gson gson = dateDeserializer.deserialize().create();
         AtividadeDto atividadeDto = gson.fromJson(atividade, AtividadeDto.class);
         AtividadeDto response = service.insert(atividadeDto);
         Set<RecursoDto> recursos = new HashSet<>();
         for(int i = 0; i < files.length; i++) {
-            RecursoDto recursoResponse = fileService.save(files[i], response.getAula());
+            RecursoDto recursoResponse = fileService.savePerguntaDoProfessor(files[i], response.getAula(), userDto);
             recursos.add(recursoResponse);
         }
         return ResponseEntity.ok(atividadeDto);

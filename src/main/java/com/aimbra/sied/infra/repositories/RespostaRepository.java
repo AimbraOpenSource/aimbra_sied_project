@@ -1,5 +1,7 @@
 package com.aimbra.sied.infra.repositories;
 
+import com.aimbra.sied.domain.sied.entities.AlunoEntity;
+import com.aimbra.sied.domain.sied.entities.AtividadeEntity;
 import com.aimbra.sied.domain.sied.entities.RespostaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -25,4 +27,8 @@ public interface RespostaRepository extends JpaRepository<RespostaEntity, Intege
     Integer countAllByAtividade_Aula_Turma_Id(Integer turmaId);
     Integer countAllByAtividade_Aula_Turma_IdAndAluno_User_Username(Integer turmaId, String username);
     Optional<List<RespostaEntity>> findAllByAtividade_Id(Integer atividadeId);
+
+    Optional<RespostaEntity> findFirstByAlunoAndAtividade(AlunoEntity aluno, AtividadeEntity atividade);
+
+    void deleteByAtividade_Id(Integer id);
 }

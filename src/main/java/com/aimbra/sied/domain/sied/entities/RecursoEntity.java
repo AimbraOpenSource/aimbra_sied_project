@@ -1,5 +1,7 @@
 package com.aimbra.sied.domain.sied.entities;
 
+import com.aimbra.sied.domain.sied.enums.TipoRecurso;
+import com.aimbra.sied.security.sied.entities.UserEntity;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -26,9 +28,16 @@ public class RecursoEntity {
     @Column(nullable = false)
     private LocalDateTime criadoEm;
 
+    @Column
+    @Enumerated(EnumType.STRING)
+    private TipoRecurso tipo;
+
     @Column(nullable = false)
     private LocalDateTime atualizadoEm;
 
     @ManyToOne
     private AulaEntity aula;
+
+    @ManyToOne
+    private UserEntity user;
 }

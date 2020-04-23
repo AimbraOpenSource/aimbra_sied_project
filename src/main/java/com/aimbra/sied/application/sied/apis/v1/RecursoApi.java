@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
@@ -26,8 +28,9 @@ public class RecursoApi {
     private FileService fileService;
 
     @GetMapping(value = "/aulas/{aulaId}")
-    public ResponseEntity<List<RecursoDto>> findAllByAulaId(@PathVariable("aulaId") Integer aulaId) {
-        return ResponseEntity.ok(service.findAllByAulaId(aulaId));
+    public ResponseEntity<List<RecursoDto>> findAllPerguntasByAulaId(@PathVariable("aulaId") Integer aulaId) {
+        List<RecursoDto> response = service.findAllByAulaIdByTipoExercicioProposto(aulaId);
+        return ResponseEntity.ok(response);
     }
 
     @PreAuthorize("hasRole('PROFESSOR')")
@@ -37,5 +40,13 @@ public class RecursoApi {
         fileService.deleteByRecurso(recursoDto);
         this.service.deleteById(recursoId);
         return ResponseEntity.ok(true);
+    }
+
+    @GetMapping(value = "/respostas")
+    public ResponseEntity<List<RecursoDto>> findAllByAulaId(
+            @PathParam("aulaId") Integer aulaId,
+            @AuthenticationPrincipal UserDetails userDetails) {
+        List<RecursoDto> response = service.findRespostaByUsernameAndAulaId(userDetails.getUsername(), aulaId);
+        return ResponseEntity.ok(response);
     }
 }
