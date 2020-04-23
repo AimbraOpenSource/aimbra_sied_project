@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public interface ZMeetingService {
 
-    List<ZMeetingDto> findAll();
-    ZMeetingDto findById(Integer id);
+    List<ZMeetingDto> findAll(String username);
+    ZMeetingDto findById(Integer id, String username);
 
 }

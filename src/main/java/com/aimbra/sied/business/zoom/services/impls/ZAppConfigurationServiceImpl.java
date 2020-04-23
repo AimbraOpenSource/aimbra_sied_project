@@ -25,6 +25,8 @@ public class ZAppConfigurationServiceImpl implements ZAppconfigurationService {
 
     @Override
     public ZAppConfigurationDto findByUsername(String username) {
-        return repository.findFirstByUser_Username(username).map(c -> converter.toDto(c)).orElseThrow(() -> new BadRequestException("Configuração não encontrada"));
+        return repository.findFirstByUser_Username(username)
+                .map(c -> converter.toDto(c))
+                .orElseThrow(() -> new BadRequestException("Configuração não encontrada"));
     }
 }

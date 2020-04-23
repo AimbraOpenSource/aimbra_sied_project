@@ -1,4 +1,4 @@
-package com.aimbra.sied.security.beans;
+package com.aimbra.sied.security.zoom.beans;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
