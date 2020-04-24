@@ -34,7 +34,7 @@ public class ZAppConfigurationApi {
     public ResponseEntity<ZAppConfigurationDto> save(@RequestBody ZAppConfigurationDto dto, @AuthenticationPrincipal UserDetails userDetails) {
         UserDto user = userService.findByUsername(userDetails.getUsername());
         dto.setUser(user);
-        dto.setExpiredAt(LocalDateTime.now().plusDays(7));
+        dto.setExpiredAt(LocalDateTime.now().plusDays(7).toString());
         return ResponseEntity.ok(service.save(dto));
     }
 

@@ -14,7 +14,7 @@ public class ZAppConfigurationConverter extends Converter<ZAppConfigurationDto, 
             entity.setId(fromDto.getId());
             entity.setApiKey(fromDto.getApiKey());
             entity.setApiSecret(fromDto.getApiSecret());
-            entity.setExpiredAt(fromDto.getExpiredAt());
+//            entity.setExpiredAt(fromDto.getExpiredAt());
             entity.setImChatHistoryToken(fromDto.getImChatHistoryToken());
             entity.setJwtToken(fromDto.getJwtToken());
             entity.setUser(new UserConverter().toEntity(fromDto.getUser()));
@@ -24,7 +24,7 @@ public class ZAppConfigurationConverter extends Converter<ZAppConfigurationDto, 
             dto.setId(fromEntity.getId());
             dto.setApiKey(fromEntity.getApiKey());
             dto.setApiSecret(fromEntity.getApiSecret());
-            dto.setExpiredAt(fromEntity.getExpiredAt());
+            dto.setExpiredAt(fromEntity.getExpiredAt().toString());
             dto.setImChatHistoryToken(fromEntity.getImChatHistoryToken());
             dto.setJwtToken(fromEntity.getJwtToken());
             dto.setUser(new UserConverter().toDto(fromEntity.getUser()));

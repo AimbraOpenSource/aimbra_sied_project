@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class ZMeetingSettingDto {
+public class ZMeetingSettingResponseDto {
     @JsonProperty(value = "host_video")
     private boolean host_video;
 
@@ -56,6 +56,9 @@ public class ZMeetingSettingDto {
     @JsonProperty(value = "meeting_authentication")
     private boolean meetingAuthentication;
 
+    @JsonProperty(value = "watermark")
     private boolean watermark;
+
+    @JsonProperty(value = "audio")
     private String audio;
 }

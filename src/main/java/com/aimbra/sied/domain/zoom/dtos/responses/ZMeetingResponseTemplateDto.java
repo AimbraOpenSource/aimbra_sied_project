@@ -1,6 +1,6 @@
 package com.aimbra.sied.domain.zoom.dtos.responses;
 
-import com.aimbra.sied.domain.zoom.dtos.ZMeetingDto;
+import com.aimbra.sied.domain.zoom.dtos.ZMeetingRequestDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class ZMeetingResponseDto {
+public class ZMeetingResponseTemplateDto {
     @JsonProperty(value = "page_count")
     private Integer pageCount;
 
@@ -21,5 +21,5 @@ public class ZMeetingResponseDto {
     @JsonProperty(value = "total_records")
     private Integer totalRecords;
 
-    private List<ZMeetingDto> meetings = new ArrayList<>();
+    private List<ZMeetingRequestDto> meetings = new ArrayList<>();
 }

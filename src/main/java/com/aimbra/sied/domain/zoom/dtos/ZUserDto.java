@@ -3,6 +3,8 @@ package com.aimbra.sied.domain.zoom.dtos;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.math.BigInteger;
+
 @Data
 public class ZUserDto {
     private String id;
@@ -26,7 +28,7 @@ public class ZUserDto {
     private String phoneNumber;
 
     @JsonProperty(value = "settings")
-    private ZMeetingSettingDto settings;
+    private ZMeetingSettingResponseDto settings;
 
     private String email;
     private float type;

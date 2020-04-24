@@ -2,10 +2,9 @@ package com.aimbra.sied.domain.zoom.entities;
 
 import com.aimbra.sied.security.sied.entities.UserEntity;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.security.core.userdetails.User;
 
 import javax.persistence.*;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,7 +14,7 @@ public class ZAppConfigurationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id;
+    private BigInteger id;
 
     @Column(nullable = false, unique = true)
     private String apiKey;

@@ -1,6 +1,7 @@
 package com.aimbra.sied.business.zoom.services;
 
-import com.aimbra.sied.domain.zoom.dtos.ZMeetingDto;
+import com.aimbra.sied.domain.zoom.dtos.ZMeetingRequestDto;
+import com.aimbra.sied.domain.zoom.dtos.ZMeetingResponseDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,7 +9,8 @@ import java.util.List;
 @Service
 public interface ZMeetingService {
 
-    List<ZMeetingDto> findAll(String username);
-    ZMeetingDto findById(Integer id, String username);
+    List<ZMeetingRequestDto> findAll(String username);
+    ZMeetingRequestDto findById(Integer id, String username);
+    ZMeetingResponseDto create(ZMeetingRequestDto dto);
 
 }
