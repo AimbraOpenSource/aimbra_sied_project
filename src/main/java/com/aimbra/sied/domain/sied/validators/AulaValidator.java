@@ -1,7 +1,9 @@
 package com.aimbra.sied.domain.sied.validators;
 
 import com.aimbra.sied.business.sied.apis.TextValidator;
+import com.aimbra.sied.domain.sied.dtos.AulaConfiguracaoDto;
 import com.aimbra.sied.domain.sied.dtos.AulaDto;
+import com.aimbra.sied.domain.sied.dtos.ReuniaoDto;
 import com.aimbra.sied.domain.sied.dtos.TurmaDto;
 import com.aimbra.sied.domain.sied.exceptions.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,13 @@ public class AulaValidator {
 
     @Autowired
     private TurmaValidator turmaValidator;
+
+    @Autowired
+    private ReuniaoValidator reuniaoValidator;
+
+    @Autowired
+    private AulaConfiguracaoValidator aulaConfiguracaoValidator;
+
 
     private void tituloIsInvalid(String titulo) {
         textValidator
@@ -71,17 +80,27 @@ public class AulaValidator {
         turmaValidator.cannotCreate(turmaDto);
     }
 
-    /**
-     * TODO: Adicionar validação de reunião e configuração
-     * @param dto
-     */
+    private void reuniaoIsInvalid(ReuniaoDto reuniaoDto) {
+        if (reuniaoDto == null) {
+            throw new BadRequestException("Reunião esta nulo ou vazia");
+        }
+        reuniaoValidator.cannotCreate(reuniaoDto);
+    }
+
+    private void aulaConfiguracaoIsInvalid(AulaConfiguracaoDto aulaConfiguracaoDto) {
+        if (aulaConfiguracaoDto == null) {
+            throw new BadRequestException("A configuração esta nula ou vazia");
+        }
+        aulaConfiguracaoValidator.cannotCreate(aulaConfiguracaoDto);
+    }
+
     public void cannotCreate(AulaDto dto) {
         tituloIsInvalid(dto.getTitulo());
         descricaoIsInvalid(dto.getDescricao());
         urlIsInvalid(dto.getUrlVideoGravado());
         observacaoIsInvalid(dto.getObservacao());
         turmaIsInvalid(dto.getTurma());
-        // TODO ReuniaoValidator
-        // TODO ConfiguraçãoValidator
+        reuniaoIsInvalid(dto.getReuniao());
+        aulaConfiguracaoIsInvalid(dto.getConfiguracao());
     }
 }

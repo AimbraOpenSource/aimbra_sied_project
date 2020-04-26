@@ -1,8 +1,9 @@
 package com.aimbra.sied.domain.sied.validators;
 
 import com.aimbra.sied.business.sied.apis.TextValidator;
-import com.aimbra.sied.business.sied.apis.impls.TextValidatorImpl;
 import com.aimbra.sied.domain.sied.dtos.AtividadeDto;
+import com.aimbra.sied.domain.sied.dtos.AulaDto;
+import com.aimbra.sied.domain.sied.exceptions.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -39,9 +40,16 @@ public class AtividadeValidator {
                 .isValid();
     }
 
+    private void aulaIsInvalid(AulaDto aulaDto) {
+        if (aulaDto == null) {
+            throw new BadRequestException("Aula da atividade esta nula");
+        }
+        aulaValidator.cannotCreate(aulaDto);
+    }
+
     public void cannotCreate(AtividadeDto dto) {
         tituloIsInvalid(dto.getTitulo());
         descricaoIsInvalid(dto.getDescricao());
-        aulaValidator.cannotCreate(dto.getAula());
+        aulaIsInvalid(dto.getAula());
     }
 }

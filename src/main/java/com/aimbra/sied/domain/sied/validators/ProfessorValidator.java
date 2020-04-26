@@ -4,6 +4,7 @@ import com.aimbra.sied.business.sied.apis.TextValidator;
 import com.aimbra.sied.domain.sied.dtos.ProfessorDto;
 import com.aimbra.sied.domain.sied.exceptions.BadRequestException;
 import com.aimbra.sied.security.sied.dtos.UserDto;
+import com.aimbra.sied.security.sied.validators.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -15,11 +16,14 @@ public class ProfessorValidator {
     @Autowired
     private TextValidator textValidator;
 
+    @Autowired
+    private UserValidator userValidator;
+
     private void userIsInvalid(UserDto user) {
         if (user == null) {
             throw new BadRequestException("Usuário esta nulo ou vazio");
         }
-        // TODO UsuarioValidator
+        userValidator.cannotRegister(user);
     }
 
     private void nomeIsInvalid(String nome) {
