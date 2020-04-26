@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @Service
@@ -30,7 +31,7 @@ public class ZMeetingServiceImpl implements ZMeetingService {
     private ZUserService zUserService;
 
     @Override
-    public List<ZMeetingRequestDto> findAll(String username) {
+    public List<ZMeetingRequestDto> findAll() {
 
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.setInterceptors(List.of(zCredentialInterceptor));
@@ -45,7 +46,7 @@ public class ZMeetingServiceImpl implements ZMeetingService {
     }
 
     @Override
-    public ZMeetingRequestDto findById(Integer id, String username) {
+    public ZMeetingRequestDto findById(BigInteger id) {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.setInterceptors(List.of(zCredentialInterceptor));
 

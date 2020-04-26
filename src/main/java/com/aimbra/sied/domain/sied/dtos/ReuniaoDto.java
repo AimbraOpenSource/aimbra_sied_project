@@ -10,6 +10,7 @@ public class ReuniaoDto {
     private String topico;
     private String descricao;
     private String duracao;
+    private String link;
     private LocalDateTime dataHoraInicio;
     private String fusoHorario;
     private String senha;

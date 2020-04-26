@@ -22,10 +22,6 @@ public class AulaConverter extends Converter<AulaDto, AulaEntity> {
                 entity.setObservacao(fromDto.getObservacao());
             }
 
-            if (fromDto.getOrdem() != null) {
-                entity.setOrdem(fromDto.getOrdem());
-            }
-
             if (fromDto.getReuniao() != null) {
                 entity.setReuniao(new ReuniaoConverter().toEntity(fromDto.getReuniao()));
             }
@@ -54,7 +50,6 @@ public class AulaConverter extends Converter<AulaDto, AulaEntity> {
             }
             dto.setDescricao(fromEntity.getDescricao());
             dto.setObservacao(fromEntity.getObservacao());
-            dto.setOrdem(fromEntity.getOrdem());
             if (fromEntity.getReuniao() != null) {
                 dto.setReuniao(new ReuniaoConverter().toDto(fromEntity.getReuniao()));
             }

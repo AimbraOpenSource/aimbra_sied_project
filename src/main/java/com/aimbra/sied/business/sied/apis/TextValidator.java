@@ -1,5 +1,8 @@
 package com.aimbra.sied.business.sied.apis;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public interface TextValidator {
     Boolean isValid();
     TextValidator whereValueIs(String value);

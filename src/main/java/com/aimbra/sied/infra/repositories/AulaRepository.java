@@ -12,8 +12,9 @@ import java.util.Optional;
 
 @Repository
 public interface AulaRepository extends JpaRepository<AulaEntity, Integer> {
-    List<AulaEntity> findAllByTurma_IdAndTurma_Professor_User_UsernameOrderByOrdem(Integer id, String username);
+    /**
+     * TODO: O método abaixo deve organizar por data de lançamento as aulas. É preciso criar a entidade data de lançamento
+     */
+    List<AulaEntity> findAllByTurma_IdAndTurma_Professor_User_Username(Integer id, String username);
     List<AulaEntity> findAllByTurma_Id(Integer id);
-    @Query(value = "select max(a.ordem) from aulas a where turma_id = :turmaId", nativeQuery = true)
-    Optional<Integer> findMaxOrderByTurmaId(@Param("turmaId") Integer turmaId);
 }

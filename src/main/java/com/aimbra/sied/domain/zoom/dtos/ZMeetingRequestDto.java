@@ -38,9 +38,9 @@ public class ZMeetingRequestDto {
     private String agenda;
 
     @JsonProperty(value = "recurrence")
-    private ZRecurrenceEntity recurrence;
+    private ZRecurrenceRequestDto recurrence;
 
     @JsonProperty(value = "settings")
-    private ZMettingSettingsEntity settings;
+    private ZMeetingSettingRequestDto settings;
 
 }

@@ -41,12 +41,12 @@ public class AulaServiceImpl implements AulaService {
 
     @Override
     public List<AulaDto> findAllByTurmaIdAndProfessorUserLoggedIn(Integer turmaId, String username) {
-        return converter.toDtoList(repository.findAllByTurma_IdAndTurma_Professor_User_UsernameOrderByOrdem(turmaId, username));
+        return converter.toDtoList(repository.findAllByTurma_IdAndTurma_Professor_User_Username(turmaId, username));
     }
 
     @Override
     public Integer findMaxOrderByTurmaId(Integer turmaId) {
-        return repository.findMaxOrderByTurmaId(turmaId).orElse(0);
+        return null;
     }
 
     @Override

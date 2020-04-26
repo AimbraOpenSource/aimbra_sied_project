@@ -18,6 +18,12 @@ public class ZMeetingEntity {
     @Column
     private String topic;
 
+    /**
+     * 1 - Reuniao Instantânea
+     * 2 - Agendar Reunião
+     * 3 - Reunião recorrente sem tempo fixo
+     * 8 - Reunião recorrente com tempo fixo
+     */
     @Column
     private Integer type;
 

@@ -13,9 +13,6 @@ public class AulaEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    @Column(nullable = false)
-    private Integer ordem;
-
     @Column(length = 128, nullable = false)
     private String titulo;
 

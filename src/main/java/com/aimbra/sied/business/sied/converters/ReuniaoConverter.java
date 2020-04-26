@@ -15,6 +15,7 @@ public class ReuniaoConverter extends Converter<ReuniaoDto, ReuniaoEntity> {
             entity.setDuracao(fromDto.getDuracao());
             entity.setFoiRealizada(fromDto.getFoiRealizada());
             entity.setFusoHorario(fromDto.getFusoHorario());
+            entity.setLink(fromDto.getLink());
             entity.setSenha(fromDto.getSenha());
             entity.setTopico(fromDto.getTopico());
             entity.setVideoAnfitriaoAtivado(fromDto.getVideoAnfitriaoAtivado());
@@ -30,6 +31,7 @@ public class ReuniaoConverter extends Converter<ReuniaoDto, ReuniaoEntity> {
             dto.setDuracao(fromEntity.getDuracao());
             dto.setFoiRealizada(fromEntity.getFoiRealizada());
             dto.setFusoHorario(fromEntity.getFusoHorario());
+            dto.setLink(fromEntity.getLink());
             dto.setSenha(fromEntity.getSenha());
             dto.setTopico(fromEntity.getTopico());
             dto.setVideoAnfitriaoAtivado(fromEntity.getVideoAnfitriaoAtivado());

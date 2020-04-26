@@ -2,7 +2,9 @@ package com.aimbra.sied.business.sied.apis.impls;
 
 import com.aimbra.sied.business.sied.apis.TextValidator;
 import com.aimbra.sied.domain.sied.exceptions.BadRequestException;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TextValidatorImpl implements TextValidator {
     private String value;
     private String messageError;

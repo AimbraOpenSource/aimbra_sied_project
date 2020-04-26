@@ -43,10 +43,10 @@ public class ZMeetingSettingRequestDto {
     private Boolean registrationType;
 
     @JsonProperty(value = "audio")
-    private String audio;
+    private Boolean audio;
 
     @JsonProperty(value = "auto_recording")
-    private String autoRecording;
+    private Boolean autoRecording;
 
     @JsonProperty(value = "enforce_login")
     private Boolean enforceLogin;

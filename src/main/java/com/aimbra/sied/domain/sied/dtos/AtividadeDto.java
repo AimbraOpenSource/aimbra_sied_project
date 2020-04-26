@@ -1,6 +1,5 @@
 package com.aimbra.sied.domain.sied.dtos;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +11,22 @@ public class AtividadeDto {
     private String titulo;
     private String descricao;
     private AulaDto aula;
+
+    @Getter
     private LocalDateTime criadoEm;
+
+    @Getter
     private LocalDateTime liberadoEm;
+
+    public AulaConfiguracaoDto getConfiguracao() {
+        return aula.getConfiguracao();
+    }
+
+    public ReuniaoDto getReuniao() {
+        return aula.getReuniao();
+    }
+
+    public void setReuniao(ReuniaoDto reuniao) {
+        aula.setReuniao(reuniao);
+    }
 }

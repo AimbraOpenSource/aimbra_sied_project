@@ -3,22 +3,28 @@ package com.aimbra.sied.business.sied.services.impls;
 import com.aimbra.sied.business.sied.converters.AtividadeConverter;
 import com.aimbra.sied.business.sied.services.AtividadeService;
 import com.aimbra.sied.business.sied.services.AulaService;
+import com.aimbra.sied.business.sied.services.ReuniaoService;
 import com.aimbra.sied.business.sied.services.TurmaService;
+import com.aimbra.sied.business.zoom.services.ZMeetingService;
 import com.aimbra.sied.domain.sied.dtos.AtividadeDto;
+import com.aimbra.sied.domain.sied.dtos.ReuniaoDto;
 import com.aimbra.sied.domain.sied.dtos.TurmaDto;
 import com.aimbra.sied.domain.sied.entities.AtividadeEntity;
 import com.aimbra.sied.domain.sied.exceptions.AtividadeNotFoundException;
+import com.aimbra.sied.domain.zoom.builders.MeetingBuild;
+import com.aimbra.sied.domain.zoom.dtos.ZMeetingResponseDto;
 import com.aimbra.sied.infra.repositories.AtividadeRepository;
 import com.aimbra.sied.infra.repositories.TurmaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class AtividadeServiceImpl implements AtividadeService {
+public class AtividadeServiceImpl implements AtividadeService, Serializable {
 
     @Autowired
     private AtividadeRepository repository;
@@ -30,9 +36,9 @@ public class AtividadeServiceImpl implements AtividadeService {
     @Autowired
     private TurmaService turmaService;
 
-    @Qualifier("aulaServiceImpl")
+    @Qualifier("ZMeetingServiceImpl")
     @Autowired
-    private AulaService aulaService;
+    private ZMeetingService meetingService;
 
     @Override
     public List<AtividadeDto> findAll() {
@@ -40,17 +46,20 @@ public class AtividadeServiceImpl implements AtividadeService {
     }
 
     @Override
-    public AtividadeDto insert(AtividadeDto dto) {
-        TurmaDto turmaDto = turmaService.findById(dto.getAula().getTurma().getId());
-        dto.getAula().setTurma(turmaDto);
+    public AtividadeDto insert(AtividadeDto atividadeDto) {
+        TurmaDto turmaDto = turmaService.findById(atividadeDto.getAula().getTurma().getId());
+        atividadeDto.getAula().setTurma(turmaDto);
 
-        Integer orderAula = aulaService.findMaxOrderByTurmaId(dto.getAula().getTurma().getId());
-        dto.getAula().setOrdem(++orderAula);
+        atividadeDto.setCriadoEm(LocalDateTime.now());
+        atividadeDto.setTitulo(atividadeDto.getAula().getTitulo());
 
-        dto.setCriadoEm(LocalDateTime.now());
-        dto.setTitulo(dto.getAula().getTitulo());
+        boolean temAulaAuVivo = atividadeDto.getConfiguracao().isTemAulaAoVivo();
+        if (temAulaAuVivo) {
+            ZMeetingResponseDto zMeetingResponseDto = meetingService.create(MeetingBuild.builderFromAulaDto(atividadeDto.getAula()));
+            atividadeDto.getReuniao().setLink(zMeetingResponseDto.getJoinUrl());
+        }
 
-        AtividadeEntity entity = converter.toEntity(dto);
+        AtividadeEntity entity = converter.toEntity(atividadeDto);
         return converter.toDto(repository.save(entity));
     }
 

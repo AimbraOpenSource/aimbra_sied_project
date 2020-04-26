@@ -11,6 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @PreAuthorize("hasRole('PROFESSOR')")
@@ -23,15 +24,13 @@ public class ZMeetingApi {
     private ZMeetingService zMeetingService;
 
     @GetMapping
-    public ResponseEntity<List<ZMeetingRequestDto>> findAll(
-            @AuthenticationPrincipal UserDetails userDetails
-            ) {
-        return ResponseEntity.ok(zMeetingService.findAll(userDetails.getUsername()));
+    public ResponseEntity<List<ZMeetingRequestDto>> findAll() {
+        return ResponseEntity.ok(zMeetingService.findAll());
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ZMeetingRequestDto> findAll(@PathVariable Integer id, @AuthenticationPrincipal UserDetails userDetails) {
-        return ResponseEntity.ok(zMeetingService.findById(id, userDetails.getUsername()));
+    public ResponseEntity<ZMeetingRequestDto> findAll(@PathVariable BigInteger id) {
+        return ResponseEntity.ok(zMeetingService.findById(id));
     }
 
     @PostMapping

@@ -13,18 +13,18 @@ public class AulaConfiguracaoEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    @Column
+    @Column(nullable = false)
     private boolean temAgendamento;
 
-    @Column
+    @Column(nullable = false)
     private boolean alunoFazUpload;
 
-    @Column
+    @Column(nullable = false)
     private boolean respostaTemTexto;
 
-    @Column
+    @Column(nullable = false)
     private boolean temAulaAoVivo;
 
-    @Column
+    @Column(nullable = false)
     private boolean temDiscusao;
 }

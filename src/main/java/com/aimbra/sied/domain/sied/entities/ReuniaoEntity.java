@@ -14,30 +14,33 @@ public class ReuniaoEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    @Column(length = 255)
+    @Column(nullable = false)
     private String topico;
 
-    @Column(length = 10000)
+    @Column(length = 10000, nullable = false)
     private String descricao;
 
-    @Column(length = 16)
+    @Column(nullable = false)
+    String link;
+
+    @Column(length = 16, nullable = false)
     private String duracao;
 
-    @Column()
+    @Column(nullable = false)
     private LocalDateTime dataHoraInicio;
 
-    @Column(length = 16)
+    @Column(length = 16, nullable = false)
     private String fusoHorario;
 
     @Column(length = 16)
     private String senha;
 
-    @Column()
+    @Column(nullable = false)
     private Boolean videoAnfitriaoAtivado;
 
-    @Column()
+    @Column(nullable = false)
     private Boolean videoParticipanteAtivado;
 
-    @Column()
+    @Column(nullable = false)
     private Boolean foiRealizada;
 }
