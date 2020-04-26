@@ -14,7 +14,7 @@ public class ReuniaoEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 64)
     private String topico;
 
     @Column(length = 10000, nullable = false)
@@ -23,13 +23,13 @@ public class ReuniaoEntity {
     @Column(nullable = false)
     String link;
 
-    @Column(length = 16, nullable = false)
+    @Column(length = 3, nullable = false)
     private String duracao;
 
     @Column(nullable = false)
     private LocalDateTime dataHoraInicio;
 
-    @Column(length = 16, nullable = false)
+    @Column(length = 32, nullable = false)
     private String fusoHorario;
 
     @Column(length = 16)

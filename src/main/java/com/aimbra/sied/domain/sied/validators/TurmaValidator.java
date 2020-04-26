@@ -30,7 +30,7 @@ public class TurmaValidator {
             .isNullOrEmpty()
             .whereFixedLentghIs(6)
             .whereMessageErrorIs("A senha precisa ter 6 caracteres")
-            .sizeIsIqualsTo()
+            .sizeIsNotIqualsTo()
             .isValid();
     }
 
