@@ -52,4 +52,10 @@ public class AtividadeValidator {
         descricaoIsInvalid(dto.getDescricao());
         aulaIsInvalid(dto.getAula());
     }
+
+    public void cannotFind(Integer valueId) {
+        if (valueId == null) {
+            throw new BadRequestException("Id esta nulo");
+        }
+    }
 }

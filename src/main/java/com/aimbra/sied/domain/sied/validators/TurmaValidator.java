@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class TurmaValidator {
 
@@ -52,5 +54,17 @@ public class TurmaValidator {
         senhaIsInvalid(dto.getSenha());
         cursoIsInvalid(dto.getCurso());
         professorIsInvalid(dto.getProfessor());
+    }
+
+    public void cannotFindByUUID(String uuid) {
+        if (uuid == null) {
+            throw new BadRequestException("UUID esta nulo");
+        }
+    }
+
+    public void cannotFindById(Integer turmaId) {
+        if (turmaId == null) {
+            throw new BadRequestException("Id da turma esta nulo");
+        }
     }
 }

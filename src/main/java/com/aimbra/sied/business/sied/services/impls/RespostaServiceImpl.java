@@ -56,18 +56,9 @@ public class RespostaServiceImpl implements RespostaService {
      */
     @Override
     public RespostaDto save(RespostaDto respostaDto) {
-        RespostaEntity entity = new RespostaEntity();
-        entity.setCriadoEm(LocalDateTime.now());
-        entity.setAtualizadoEm(LocalDateTime.now());
-        entity.setAluno(new AlunoConverter().toEntity(respostaDto.getAluno()));
-        AtividadeEntity atividadeEntity = new AtividadeEntity();
-        atividadeEntity.setId(respostaDto.getAtividade().getId());
-        entity.setAtividade(atividadeEntity);
-        entity.setDescricao(respostaDto.getDescricao());
-        entity.setCaminho(respostaDto.getCaminho());
-
-        repository.save(entity);
-        return respostaDto;
+        RespostaEntity entity = converter.toEntity(respostaDto);
+        entity = repository.save(entity);
+        return converter.toDto(entity);
     }
 
     /**
@@ -163,5 +154,10 @@ public class RespostaServiceImpl implements RespostaService {
         }
         resposta.setCaminho(null);
         RespostaEntity save = repository.saveAndFlush(converter.toEntity(resposta));
+    }
+
+    @Override
+    public Boolean existsById(Integer id) {
+        return repository.existsById(id);
     }
 }

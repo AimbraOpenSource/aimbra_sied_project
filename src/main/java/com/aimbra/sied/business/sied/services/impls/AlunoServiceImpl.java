@@ -10,6 +10,7 @@ import com.aimbra.sied.domain.sied.dtos.AlunoOfProfessorDto;
 import com.aimbra.sied.domain.sied.dtos.TurmaAlunoDto;
 import com.aimbra.sied.domain.sied.dtos.TurmaDto;
 import com.aimbra.sied.domain.sied.entities.AlunoEntity;
+import com.aimbra.sied.domain.sied.exceptions.AlunoNotFoundException;
 import com.aimbra.sied.domain.sied.exceptions.TurmaNotAuthorizedException;
 import com.aimbra.sied.domain.sied.exceptions.TurmaNotFoundException;
 import com.aimbra.sied.infra.projections.AlunoOfProfessorProjection;
@@ -69,6 +70,11 @@ public class AlunoServiceImpl implements AlunoService {
     public AlunoDto save(AlunoDto dto) {
         AlunoEntity alunoEntity = converter.toEntity(dto);
         return converter.toDto(repository.save(alunoEntity));
+    }
+
+    @Override
+    public AlunoDto findById(Integer id) {
+        return repository.findById(id).map(a -> converter.toDto(a)).orElseThrow(() -> new AlunoNotFoundException("Aluno não encontrado pelo Id"));
     }
 
     /**

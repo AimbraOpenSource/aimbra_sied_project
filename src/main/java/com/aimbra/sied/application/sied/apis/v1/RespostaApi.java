@@ -1,11 +1,13 @@
 package com.aimbra.sied.application.sied.apis.v1;
 
 import com.aimbra.sied.business.sied.services.AlunoService;
+import com.aimbra.sied.business.sied.services.AtividadeService;
 import com.aimbra.sied.business.sied.services.RespostaService;
 import com.aimbra.sied.domain.sied.dtos.AlunoDto;
 import com.aimbra.sied.domain.sied.dtos.AtividadeDto;
 import com.aimbra.sied.domain.sied.dtos.RespostaDto;
 import com.aimbra.sied.domain.sied.utils.DateDeserializer;
+import com.aimbra.sied.domain.sied.validators.RespostaValidator;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.websocket.server.PathParam;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -33,12 +36,17 @@ public class RespostaApi {
     @Autowired
     private AlunoService alunoService;
 
+    @Qualifier("atividadeServiceImpl")
     @Autowired
-    private DateDeserializer dateDeserializer;
+    private AtividadeService atividadeService;
+
+    @Autowired
+    private RespostaValidator respostaValidator;
 
     @PreAuthorize("hasRole('PROFESSOR')")
     @GetMapping
     public ResponseEntity<List<RespostaDto>> findAllByAulaId(@PathParam("aulaId") Integer aulaId) {
+        respostaValidator.cannotFindById(aulaId);
         return ResponseEntity.ok(service.findAllByAulaId(aulaId));
     }
 
@@ -47,7 +55,7 @@ public class RespostaApi {
     public ResponseEntity<RespostaDto> findByAtividadeIdAndUserLoggedIn(
             @PathVariable("id") Integer id,
             @AuthenticationPrincipal UserDetails userDetails) {
-
+        respostaValidator.cannotFindById(id);
         RespostaDto response = service.findByAtividadeIdAndUsername(id, userDetails.getUsername());
         return ResponseEntity.ok(response);
     }
@@ -60,6 +68,15 @@ public class RespostaApi {
             @AuthenticationPrincipal UserDetails userDetails) {
         AlunoDto aluno = alunoService.findByUsername(userDetails.getUsername());
         respostaDto.setAluno(aluno);
+
+        AtividadeDto atividadeDto = atividadeService.findById(respostaDto.getAtividade().getId());
+        respostaDto.setAtividade(atividadeDto);
+
+        respostaDto.setCriadoEm(LocalDateTime.now());
+        respostaDto.setAtualizadoEm(LocalDateTime.now());
+
+        respostaValidator.cannotCreate(respostaDto);
+
         respostaDto = service.save(respostaDto);
         return ResponseEntity.ok(respostaDto);
     }
@@ -92,6 +109,7 @@ public class RespostaApi {
     public ResponseEntity<?> deleteFile(
             @PathParam("atividadeId") Integer atividadeId,
             @AuthenticationPrincipal UserDetails userDetails) {
+        respostaValidator.cannotDelete(atividadeId);
         service.deleteFileByAtividadeIdAndUsername(atividadeId, userDetails.getUsername());
         return ResponseEntity.ok(true);
     }

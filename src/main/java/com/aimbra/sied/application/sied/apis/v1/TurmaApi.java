@@ -9,6 +9,7 @@ import com.aimbra.sied.domain.sied.dtos.ProfessorDto;
 import com.aimbra.sied.domain.sied.dtos.TurmaAlunoDto;
 import com.aimbra.sied.domain.sied.dtos.TurmaDto;
 import com.aimbra.sied.domain.sied.exceptions.BadRequestException;
+import com.aimbra.sied.domain.sied.validators.TurmaValidator;
 import com.aimbra.sied.security.sied.dtos.UserDto;
 import com.aimbra.sied.security.sied.enums.UserRole;
 import com.google.gson.Gson;
@@ -40,21 +41,27 @@ public class TurmaApi {
     @Autowired
     private ProfessorService professorService;
 
+    @Autowired
+    private TurmaValidator turmaValidator;
+
     @GetMapping(value = "/{uuid}")
     public ResponseEntity<TurmaDto> findByUUid(@PathVariable("uuid") String uuid) {
+        turmaValidator.cannotFindByUUID(uuid);
         TurmaDto turmaResponse = service.findByUuid(UUID.fromString(uuid));
         return ResponseEntity.ok(turmaResponse);
     }
 
     @GetMapping()
     public ResponseEntity<TurmaDto> findById(@PathParam("turmaId") Integer turmaId) {
+        turmaValidator.cannotFindById(turmaId);
         return ResponseEntity.ok(service.findById(turmaId));
     }
 
     @PreAuthorize("hasRole('PROFESSOR')")
     @GetMapping(value = "/professor")
     public ResponseEntity<List<TurmaDto>> findAllByProfessorLoggedIn(@AuthenticationPrincipal UserDetails userDetails) {
-        return ResponseEntity.ok(service.findAllByProfessorUsername(userDetails.getUsername()));
+        List<TurmaDto> turma = service.findAllByProfessorUsername(userDetails.getUsername());
+        return ResponseEntity.ok(turma);
     }
 
     @PreAuthorize("hasRole('PROFESSOR')")

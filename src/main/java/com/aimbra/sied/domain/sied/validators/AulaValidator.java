@@ -103,4 +103,10 @@ public class AulaValidator {
         reuniaoIsInvalid(dto.getReuniao());
         aulaConfiguracaoIsInvalid(dto.getConfiguracao());
     }
+
+    public void cannotFind(Integer valueId) {
+        if (valueId == null) {
+            throw new BadRequestException("O Id esta nulo");
+        }
+    }
 }

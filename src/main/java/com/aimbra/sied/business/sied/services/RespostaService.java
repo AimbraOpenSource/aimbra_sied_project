@@ -20,4 +20,6 @@ public interface RespostaService {
     RespostaDto saveFile(MultipartFile file, Integer atividadeId, String username);
 
     void deleteFileByAtividadeIdAndUsername(Integer atividadeId, String username);
+
+    Boolean existsById(Integer id);
 }

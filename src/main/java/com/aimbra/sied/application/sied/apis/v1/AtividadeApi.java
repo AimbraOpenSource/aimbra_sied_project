@@ -7,6 +7,7 @@ import com.aimbra.sied.business.sied.services.impls.UserServiceImpl;
 import com.aimbra.sied.domain.sied.dtos.AtividadeDto;
 import com.aimbra.sied.domain.sied.dtos.RecursoDto;
 import com.aimbra.sied.domain.sied.utils.DateDeserializer;
+import com.aimbra.sied.domain.sied.validators.AtividadeValidator;
 import com.aimbra.sied.security.sied.dtos.UserDto;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,9 @@ public class AtividadeApi {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AtividadeValidator atividadeValidator;
+
     @GetMapping
     public ResponseEntity<List<AtividadeDto>> findAll() {
         return ResponseEntity.ok(service.findAll());
@@ -49,11 +53,13 @@ public class AtividadeApi {
 
     @GetMapping(path = "/{atividadeId}")
     public ResponseEntity<AtividadeDto> findById(@PathVariable("atividadeId") Integer atividadeId) {
+        atividadeValidator.cannotFind(atividadeId);
         return ResponseEntity.ok(service.findById(atividadeId));
     }
 
     @GetMapping(path = "/aulas/{aulaId}")
     public ResponseEntity<AtividadeDto> findByAulaId(@PathVariable("aulaId") Integer aulaId) {
+        atividadeValidator.cannotFind(aulaId);
         AtividadeDto response = service.findByAulaId(aulaId);
         return ResponseEntity.ok(response);
     }
@@ -67,6 +73,9 @@ public class AtividadeApi {
         UserDto userDto = userService.findByUsername(userDetails.getUsername());
         Gson gson = dateDeserializer.deserialize().create();
         AtividadeDto atividadeDto = gson.fromJson(atividade, AtividadeDto.class);
+
+        atividadeValidator.cannotCreate(atividadeDto);
+
         AtividadeDto response = service.insert(atividadeDto);
         Set<RecursoDto> recursos = new HashSet<>();
         for(int i = 0; i < files.length; i++) {

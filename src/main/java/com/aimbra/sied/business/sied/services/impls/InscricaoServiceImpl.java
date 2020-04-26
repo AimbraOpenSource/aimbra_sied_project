@@ -6,6 +6,7 @@ import com.aimbra.sied.business.sied.services.AlunoService;
 import com.aimbra.sied.business.sied.services.InscricaoService;
 import com.aimbra.sied.business.sied.services.TurmaService;
 import com.aimbra.sied.domain.sied.dtos.AlunoDto;
+import com.aimbra.sied.domain.sied.dtos.InscricaoDto;
 import com.aimbra.sied.domain.sied.dtos.TurmaDto;
 import com.aimbra.sied.domain.sied.entities.AlunoEntity;
 import com.aimbra.sied.domain.sied.entities.TurmaEntity;
@@ -33,7 +34,8 @@ public class InscricaoServiceImpl implements InscricaoService {
     @Autowired
     private TurmaConverter turmaConverter;
 
-
+    @Autowired
+    private AlunoConverter alunoConverter;
 
     @Override
     public List<TurmaDto> findAll() {
@@ -42,21 +44,20 @@ public class InscricaoServiceImpl implements InscricaoService {
     }
 
     @Override
-    public TurmaDto insertAluno(String username, String turmaUuid, String senhaTurma) {
-        var alunoEntity = findAlunoByUsername(username);
-        var turmaEntity = findTurmaByUuid(turmaUuid);
-        senhaTurmaEqualsTo(senhaTurma, turmaEntity);
-        turmaEntity.addAluno(alunoEntity);
-        turmaEntity = turmaRepository.save(turmaEntity);
-        return turmaConverter.toDto(turmaEntity);
+    public TurmaDto insertAlunoWithSenha(InscricaoDto inscricaoDto, String senhaTurma) {
+        senhaTurmaEqualsTo(senhaTurma, inscricaoDto.getTurma());
+
+        var turma = new TurmaEntity();
+        turma.addAluno(alunoConverter.toEntity(inscricaoDto.getAluno()));
+
+        turma = turmaRepository.save(turma);
+        return turmaConverter.toDto(turma);
     }
 
     @Override
-    public void removeByAlunoIdAndTurmaId(Integer alunoId, Integer turmaId) {
-        AlunoEntity aluno = findAlunoById(alunoId);
-        TurmaEntity turma = findTurmaById(turmaId);
-        turma.removeAluno(aluno);
-        turmaRepository.save(turma);
+    public void removeByInscricao(InscricaoDto dto) {
+        dto.getTurma().removealuno(dto.getAluno());
+        turmaRepository.save(turmaConverter.toEntity(dto.getTurma()));
     }
 
     private AlunoEntity findAlunoById(Integer alunoId) {
@@ -67,8 +68,8 @@ public class InscricaoServiceImpl implements InscricaoService {
         return turmaRepository.findById(turmaId).orElseThrow(() -> new TurmaNotFoundException("Turma não encontrada pelo Id"));
     }
 
-    private void senhaTurmaEqualsTo(String senhaTurma, TurmaEntity turmaEntity) {
-        if (!senhaTurma.equalsIgnoreCase(turmaEntity.getSenha())) throw new BadRequestException("A Senha da Turma não se tem ingridade com a informada");
+    private void senhaTurmaEqualsTo(String senhaTurma, TurmaDto turma) {
+        if (!senhaTurma.equalsIgnoreCase(turma.getSenha())) throw new BadRequestException("A Senha da Turma não se tem ingridade com a informada");
     }
 
     private TurmaEntity findTurmaByUuid(String turmaUuid) {

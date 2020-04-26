@@ -17,5 +17,6 @@ public interface AlunoService {
     List<AlunoOfProfessorDto> findAllAlunosOfProfessor(String username);
     AlunoDto findByUsername(String username);
     AlunoDto save(AlunoDto dto);
+    AlunoDto findById(Integer id);
     Boolean existsOnTurmaUuidAndUsername(UUID uuid, String username);
 }

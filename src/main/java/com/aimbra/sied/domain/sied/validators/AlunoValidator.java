@@ -4,7 +4,6 @@ import com.aimbra.sied.business.sied.apis.TextValidator;
 import com.aimbra.sied.domain.sied.dtos.AlunoDto;
 import com.aimbra.sied.domain.sied.exceptions.BadRequestException;
 import com.aimbra.sied.security.sied.dtos.UserDto;
-import com.aimbra.sied.security.sied.validators.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

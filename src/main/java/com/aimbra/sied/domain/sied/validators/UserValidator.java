@@ -1,4 +1,4 @@
-package com.aimbra.sied.security.sied.validators;
+package com.aimbra.sied.domain.sied.validators;
 
 import com.aimbra.sied.business.sied.apis.impls.TextValidatorImpl;
 import com.aimbra.sied.business.sied.services.UserService;
