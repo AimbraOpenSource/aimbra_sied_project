@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class AulaDto {
     private Integer id;
-    private Integer ordem;
     private String titulo;
     private String urlVideoGravado;
     private String descricao;
