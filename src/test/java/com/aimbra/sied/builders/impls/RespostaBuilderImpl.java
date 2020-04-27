@@ -1,6 +1,6 @@
 package com.aimbra.sied.builders.impls;
 
-import com.aimbra.sied.builders.interfaces.RespostaBuilder;
+import com.aimbra.sied.builders.RespostaBuilder;
 import com.aimbra.sied.domain.sied.dtos.AlunoDto;
 import com.aimbra.sied.domain.sied.dtos.AtividadeDto;
 import com.aimbra.sied.domain.sied.dtos.RespostaDto;

@@ -1,6 +1,6 @@
 package com.aimbra.sied.builders.impls;
 
-import com.aimbra.sied.builders.interfaces.AulaBuilder;
+import com.aimbra.sied.builders.AulaBuilder;
 import com.aimbra.sied.domain.sied.dtos.AulaConfiguracaoDto;
 import com.aimbra.sied.domain.sied.dtos.AulaDto;
 import com.aimbra.sied.domain.sied.dtos.ReuniaoDto;

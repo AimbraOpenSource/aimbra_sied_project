@@ -1,10 +1,9 @@
 package com.aimbra.sied.builders.impls;
 
-import com.aimbra.sied.builders.interfaces.AlunoBuilder;
-import com.aimbra.sied.builders.interfaces.UserBuilder;
+import com.aimbra.sied.builders.AlunoBuilder;
+import com.aimbra.sied.builders.UserBuilder;
 import com.aimbra.sied.domain.sied.dtos.AlunoDto;
 import com.aimbra.sied.domain.sied.dtos.TurmaDto;
-import com.aimbra.sied.security.sied.dtos.UserDto;
 import com.aimbra.sied.security.sied.enums.UserRole;
 
 import java.util.List;

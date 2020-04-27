@@ -1,4 +1,4 @@
-package com.aimbra.sied.builders.interfaces;
+package com.aimbra.sied.builders;
 
 import com.aimbra.sied.domain.sied.dtos.TurmaDto;
 

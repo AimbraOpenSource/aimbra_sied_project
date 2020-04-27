@@ -1,6 +1,6 @@
 package com.aimbra.sied.builders.impls;
 
-import com.aimbra.sied.builders.interfaces.AulaConfiguracaoBuilder;
+import com.aimbra.sied.builders.AulaConfiguracaoBuilder;
 import com.aimbra.sied.domain.sied.dtos.AulaConfiguracaoDto;
 
 public class AulaConfiguracaoBuilderImpl implements AulaConfiguracaoBuilder {

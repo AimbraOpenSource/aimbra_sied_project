@@ -1,6 +1,6 @@
 package com.aimbra.sied.builders.impls;
 
-import com.aimbra.sied.builders.interfaces.CursoBuilder;
+import com.aimbra.sied.builders.CursoBuilder;
 import com.aimbra.sied.domain.sied.dtos.CursoDto;
 
 public class CursoBuilderImpl implements CursoBuilder {

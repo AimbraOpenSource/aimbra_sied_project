@@ -1,6 +1,6 @@
 package com.aimbra.sied.builders.impls;
 
-import com.aimbra.sied.builders.interfaces.UserBuilder;
+import com.aimbra.sied.builders.UserBuilder;
 import com.aimbra.sied.security.sied.dtos.UserDto;
 import com.aimbra.sied.security.sied.enums.UserRole;
 

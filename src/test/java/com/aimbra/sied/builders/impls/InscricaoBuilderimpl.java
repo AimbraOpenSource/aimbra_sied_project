@@ -1,8 +1,6 @@
-package com.aimbra.sied.builders.interfaces;
+package com.aimbra.sied.builders.impls;
 
-import com.aimbra.sied.builders.impls.AlunoBuilderImpl;
-import com.aimbra.sied.builders.impls.InscricaoBuilder;
-import com.aimbra.sied.builders.impls.TurmaBuilderImpl;
+import com.aimbra.sied.builders.InscricaoBuilder;
 import com.aimbra.sied.domain.sied.dtos.AlunoDto;
 import com.aimbra.sied.domain.sied.dtos.InscricaoDto;
 import com.aimbra.sied.domain.sied.dtos.TurmaDto;

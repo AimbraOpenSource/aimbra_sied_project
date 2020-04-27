@@ -1,7 +1,6 @@
-package com.aimbra.sied.builders.interfaces;
+package com.aimbra.sied.builders;
 
 import com.aimbra.sied.security.sied.dtos.UserDto;
-import com.aimbra.sied.security.sied.enums.UserRole;
 
 public interface UserBuilder {
 

@@ -1,4 +1,4 @@
-package com.aimbra.sied.builders.interfaces;
+package com.aimbra.sied;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

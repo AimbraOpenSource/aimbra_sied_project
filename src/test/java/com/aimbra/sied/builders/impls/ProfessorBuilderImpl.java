@@ -1,7 +1,7 @@
 package com.aimbra.sied.builders.impls;
 
-import com.aimbra.sied.builders.interfaces.ProfessorBuilder;
-import com.aimbra.sied.builders.interfaces.UserBuilder;
+import com.aimbra.sied.builders.ProfessorBuilder;
+import com.aimbra.sied.builders.UserBuilder;
 import com.aimbra.sied.domain.sied.dtos.ProfessorDto;
 import com.aimbra.sied.security.sied.enums.UserRole;
 

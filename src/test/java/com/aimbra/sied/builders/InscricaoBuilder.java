@@ -1,4 +1,4 @@
-package com.aimbra.sied.builders.impls;
+package com.aimbra.sied.builders;
 
 import com.aimbra.sied.domain.sied.dtos.InscricaoDto;
 

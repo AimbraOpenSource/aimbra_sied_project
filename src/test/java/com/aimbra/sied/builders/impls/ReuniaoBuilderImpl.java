@@ -1,6 +1,6 @@
 package com.aimbra.sied.builders.impls;
 
-import com.aimbra.sied.builders.interfaces.ReuniaoBuilder;
+import com.aimbra.sied.builders.ReuniaoBuilder;
 import com.aimbra.sied.domain.sied.dtos.ReuniaoDto;
 
 import java.time.LocalDateTime;

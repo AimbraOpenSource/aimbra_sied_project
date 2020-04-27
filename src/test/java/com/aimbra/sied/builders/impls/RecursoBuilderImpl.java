@@ -1,6 +1,6 @@
 package com.aimbra.sied.builders.impls;
 
-import com.aimbra.sied.builders.interfaces.RecursoBuilder;
+import com.aimbra.sied.builders.RecursoBuilder;
 import com.aimbra.sied.domain.sied.dtos.AulaDto;
 import com.aimbra.sied.domain.sied.dtos.RecursoDto;
 import com.aimbra.sied.domain.sied.enums.TipoRecurso;
