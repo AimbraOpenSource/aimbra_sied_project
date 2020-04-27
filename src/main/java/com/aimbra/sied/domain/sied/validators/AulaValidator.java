@@ -40,24 +40,25 @@ public class AulaValidator {
 
     private void descricaoIsInvalid(String descricao) {
         textValidator
-            .whereValueIs(descricao)
-            .whereMessageErrorIs("A URL do vídeo gravado esta nula ou vazia")
-            .isNullOrEmpty()
-            .whereRangeLengthIs(5, 1024)
-            .whereMessageErrorIs("A Url do vídeo gravado deve ter entre 5 a 1024 caracteres")
-            .hasInvalidLength()
-            .isValid();
+                .whereValueIs(descricao)
+                .whereMessageErrorIs("A descrição esta nula ou vazia")
+                .isNullOrEmpty()
+                .whereRangeLengthIs(50, 10000)
+                .whereMessageErrorIs("A descrição precisa ter entre 50 a 10000 cracteres")
+                .hasInvalidLength()
+                .isValid();
     }
 
     private void urlIsInvalid(String url) {
         textValidator
-            .whereValueIs(url)
-            .whereMessageErrorIs("A descrição esta nula ou vazia")
-            .isNullOrEmpty()
-            .whereRangeLengthIs(50, 10000)
-            .whereMessageErrorIs("A descrição precisa ter entre 50 a 10000 cracteres")
-            .hasInvalidLength()
-            .isValid();
+                .whereValueIs(url)
+                .whereMessageErrorIs("A URL do vídeo gravado esta nula ou vazia")
+                .isNullOrEmpty()
+                .whereRangeLengthIs(5, 1024)
+                .whereMessageErrorIs("A Url do vídeo gravado deve ter entre 5 a 1024 caracteres")
+                .hasInvalidLength()
+                .isValid();
+
     }
 
     private void observacaoIsInvalid(String observacao) {
@@ -100,8 +101,8 @@ public class AulaValidator {
         urlIsInvalid(dto.getUrlVideoGravado());
         observacaoIsInvalid(dto.getObservacao());
         turmaIsInvalid(dto.getTurma());
-        reuniaoIsInvalid(dto.getReuniao());
         aulaConfiguracaoIsInvalid(dto.getConfiguracao());
+        reuniaoIsInvalid(dto.getReuniao());
     }
 
     public void cannotFind(Integer valueId) {
