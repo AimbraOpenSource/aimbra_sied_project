@@ -19,10 +19,10 @@ public class AulaConfiguracaoValidator {
     }
 
     public void cannotCreate(AulaConfiguracaoDto dto) {
-        fielIsInvalid(dto.isTemAgendamento(), "O campo tem agendamento esta nulo");
-        fielIsInvalid(dto.isAlunoFazUpload(), "O campo aluno faz upload esta nulo");
-        fielIsInvalid(dto.isRespostaTemTexto(), "O campo tem resposta em texto esta nulo");
-        fielIsInvalid(dto.isTemAulaAoVivo(), "O campo tem aula ao vivo esta nulo");
-        fielIsInvalid(dto.isTemDiscusao(), "O campo tem discussão esta nulo");
+        fielIsInvalid(dto.getTemAgendamento(), "O campo tem agendamento esta nulo");
+        fielIsInvalid(dto.getAlunoFazUpload(), "O campo aluno faz upload esta nulo");
+        fielIsInvalid(dto.getRespostaTemTexto(), "O campo tem resposta em texto esta nulo");
+        fielIsInvalid(dto.getTemAulaAoVivo(), "O campo tem aula ao vivo esta nulo");
+        fielIsInvalid(dto.getTemDiscusao(), "O campo tem discussão esta nulo");
     }
 }

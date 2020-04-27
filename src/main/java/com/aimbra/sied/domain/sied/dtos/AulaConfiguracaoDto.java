@@ -1,6 +1,5 @@
 package com.aimbra.sied.domain.sied.dtos;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

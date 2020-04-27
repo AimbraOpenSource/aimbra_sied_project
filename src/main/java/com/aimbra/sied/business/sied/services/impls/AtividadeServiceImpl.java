@@ -53,7 +53,7 @@ public class AtividadeServiceImpl implements AtividadeService, Serializable {
         atividadeDto.setCriadoEm(LocalDateTime.now());
         atividadeDto.setTitulo(atividadeDto.getAula().getTitulo());
 
-        boolean temAulaAuVivo = atividadeDto.getConfiguracao().isTemAulaAoVivo();
+        boolean temAulaAuVivo = atividadeDto.getConfiguracao().getTemAulaAoVivo();
         if (temAulaAuVivo) {
             ZMeetingResponseDto zMeetingResponseDto = meetingService.create(MeetingBuild.builderFromAulaDto(atividadeDto.getAula()));
             atividadeDto.getReuniao().setLink(zMeetingResponseDto.getJoinUrl());

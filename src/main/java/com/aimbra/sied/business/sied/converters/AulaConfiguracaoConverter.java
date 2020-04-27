@@ -12,11 +12,11 @@ public class AulaConfiguracaoConverter extends Converter<AulaConfiguracaoDto, Au
             if (fromDto.getId() != null) {
                 entity.setId(fromDto.getId());
             }
-            entity.setRespostaTemTexto(fromDto.isRespostaTemTexto());
-            entity.setAlunoFazUpload(fromDto.isAlunoFazUpload());
-            entity.setTemAgendamento(fromDto.isTemAgendamento());
-            entity.setTemAulaAoVivo(fromDto.isTemAulaAoVivo());
-            entity.setTemDiscusao(fromDto.isTemDiscusao());
+            entity.setRespostaTemTexto(fromDto.getRespostaTemTexto());
+            entity.setAlunoFazUpload(fromDto.getAlunoFazUpload());
+            entity.setTemAgendamento(fromDto.getTemAgendamento());
+            entity.setTemAulaAoVivo(fromDto.getTemAulaAoVivo());
+            entity.setTemDiscusao(fromDto.getTemDiscusao());
             return entity;
         }, fromEntity -> {
             AulaConfiguracaoDto dto = new AulaConfiguracaoDto();
