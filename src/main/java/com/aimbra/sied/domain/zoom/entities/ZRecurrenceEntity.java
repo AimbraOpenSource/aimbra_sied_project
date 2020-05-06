@@ -6,9 +6,9 @@ import javax.persistence.*;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 
-@Entity
-@Data
-@Table(name = "currences", schema = "zoom")
+//@Entity
+//@Data
+//@Table(name = "currences", schema = "zoom")
 public class ZRecurrenceEntity {
 
     @Id

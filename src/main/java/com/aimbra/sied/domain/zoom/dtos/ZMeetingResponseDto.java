@@ -1,5 +1,7 @@
 package com.aimbra.sied.domain.zoom.dtos;
 
+import com.aimbra.sied.domain.sied.dtos.AtividadeDto;
+import com.aimbra.sied.domain.sied.dtos.AulaDto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -30,7 +32,7 @@ public class ZMeetingResponseDto {
     private String status;
 
     @JsonProperty(value = "start_time")
-    private String startTime;
+    private LocalDateTime startTime;
 
     @JsonProperty(value = "duration")
     private Integer duration;
@@ -55,7 +57,5 @@ public class ZMeetingResponseDto {
 
     @JsonProperty(value = "settings")
     private ZMeetingSettingResponseDto settings;
-
-
 
 }

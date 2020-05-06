@@ -1,11 +1,14 @@
 package com.aimbra.sied.business.zoom.services.impls;
 
+import com.aimbra.sied.business.zoom.converters.ZMeetingConverter;
 import com.aimbra.sied.business.zoom.services.ZMeetingService;
 import com.aimbra.sied.business.zoom.services.ZUserService;
 import com.aimbra.sied.domain.zoom.dtos.ZMeetingRequestDto;
 import com.aimbra.sied.domain.zoom.dtos.ZMeetingResponseDto;
 import com.aimbra.sied.domain.zoom.dtos.ZUserDto;
 import com.aimbra.sied.domain.zoom.dtos.responses.ZMeetingResponseTemplateDto;
+import com.aimbra.sied.domain.zoom.entities.ZMeetingEntity;
+import com.aimbra.sied.infra.zoom.repositories.ZMeetingRepository;
 import com.aimbra.sied.security.zoom.interceptors.ZCredentialInterceptor;
 import com.aimbra.sied.security.zoom.models.ZAppCredentials;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,12 @@ public class ZMeetingServiceImpl implements ZMeetingService {
     @Qualifier("ZUserServiceImpl")
     @Autowired
     private ZUserService zUserService;
+
+    @Autowired
+    private ZMeetingRepository zMeetingRepository;
+
+    @Autowired
+    private ZMeetingConverter zMeetingConverter;
 
     @Override
     public List<ZMeetingRequestDto> findAll() {
@@ -67,6 +76,12 @@ public class ZMeetingServiceImpl implements ZMeetingService {
                 dto,
                 ZMeetingResponseDto.class
         );
+
+        if (meetingResponse != null) {
+            ZMeetingEntity zMeetingEntity = zMeetingConverter.toEntity(meetingResponse);
+            zMeetingEntity = zMeetingRepository.save(zMeetingEntity);
+        }
+
         return meetingResponse;
     }
 }

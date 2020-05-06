@@ -6,6 +6,7 @@ import com.aimbra.sied.business.sied.services.AtividadeService;
 import com.aimbra.sied.business.sied.services.AulaService;
 import com.aimbra.sied.business.sied.services.ReuniaoService;
 import com.aimbra.sied.business.sied.services.TurmaService;
+import com.aimbra.sied.business.zoom.converters.ZMeetingConverter;
 import com.aimbra.sied.business.zoom.services.ZMeetingService;
 import com.aimbra.sied.domain.sied.dtos.AtividadeDto;
 import com.aimbra.sied.domain.sied.dtos.ReuniaoDto;
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -55,13 +57,16 @@ public class AtividadeServiceImpl implements AtividadeService, Serializable {
     @Override
     public AtividadeDto insert(AtividadeDto atividadeDto) {
         boolean temAulaAuVivo = atividadeDto.getConfiguracao().getTemAulaAoVivo();
+
+        ZMeetingResponseDto zMeetingResponseDto;
+        AulaEntity aulaEntity = new AulaConverter().toEntity(atividadeDto.getAula());
         if (temAulaAuVivo) {
-            ZMeetingResponseDto zMeetingResponseDto = meetingService.create(MeetingBuild.builderFromAulaDto(atividadeDto.getAula()));
+            zMeetingResponseDto = meetingService.create(MeetingBuild.builderFromAulaDto(atividadeDto.getAula()));
             atividadeDto.getReuniao().setLink(zMeetingResponseDto.getJoinUrl());
+            aulaEntity.setMettings(List.of(new ZMeetingConverter().toEntity(zMeetingResponseDto)));
         }
 
-
-        AulaEntity aulaEntity = aulaRepository.save(new AulaConverter().toEntity(atividadeDto.getAula()));
+        aulaEntity = aulaRepository.save(aulaEntity);
         atividadeDto.setAula(new AulaConverter().toDto(aulaEntity));
 
         AtividadeEntity entity = converter.toEntity(atividadeDto);

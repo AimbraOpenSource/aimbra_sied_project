@@ -1,8 +1,11 @@
 package com.aimbra.sied.domain.sied.entities;
 
+import com.aimbra.sied.domain.zoom.entities.ZMeetingEntity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "aulas")
@@ -33,5 +36,8 @@ public class AulaEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
     private AulaConfiguracaoEntity configuracao;
+
+    @OneToMany
+    private List<ZMeetingEntity> mettings = new ArrayList<>();
 
 }

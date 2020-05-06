@@ -6,9 +6,9 @@ import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.List;
 
-@Entity
-@Data
-@Table(name = "settings", schema = "zoom")
+//@Entity
+//@Data
+//@Table(name = "settings", schema = "zoom")
 public class ZMettingSettingsEntity {
 
     @Id

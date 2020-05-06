@@ -1,5 +1,8 @@
 package com.aimbra.sied.domain.zoom.entities;
 
+import com.aimbra.sied.domain.sied.entities.AulaEntity;
+import com.aimbra.sied.domain.zoom.dtos.ZMeetingSettingResponseDto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,20 +15,22 @@ import java.time.LocalDateTime;
 public class ZMeetingEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigInteger id;
+
+    @Column
+    private String uuid;
+
+    @Column
+    private String hostId;
 
     @Column
     private String topic;
 
-    /**
-     * 1 - Reuniao Instantânea
-     * 2 - Agendar Reunião
-     * 3 - Reunião recorrente sem tempo fixo
-     * 8 - Reunião recorrente com tempo fixo
-     */
     @Column
     private Integer type;
+
+    @Column
+    private String status;
 
     @Column
     private LocalDateTime startTime;
@@ -37,15 +42,21 @@ public class ZMeetingEntity {
     private String timezone;
 
     @Column
-    private String password;
-
-    @Column
     private String agenda;
 
-    @ManyToOne
-    private ZRecurrenceEntity recurrence;
+    @Column
+    private String created_at;
 
-    @ManyToOne
-    private ZMettingSettingsEntity settings;
+    @Column
+    private String startUrl;
+
+    @Column
+    private String joinUrl;
+
+    @Column
+    private String pmi;
+
+//    @ManyToOne
+//    private ZMettingSettingsEntity settings;
 
 }
