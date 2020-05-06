@@ -60,6 +60,7 @@ public class AtividadeServiceImpl implements AtividadeService, Serializable {
             atividadeDto.getReuniao().setLink(zMeetingResponseDto.getJoinUrl());
         }
 
+
         AulaEntity aulaEntity = aulaRepository.save(new AulaConverter().toEntity(atividadeDto.getAula()));
         atividadeDto.setAula(new AulaConverter().toDto(aulaEntity));
 
