@@ -37,7 +37,8 @@ public class AulaEntity {
     @OneToOne(cascade = CascadeType.ALL)
     private AulaConfiguracaoEntity configuracao;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "aula_id")
     private List<ZMeetingEntity> mettings = new ArrayList<>();
 
 }

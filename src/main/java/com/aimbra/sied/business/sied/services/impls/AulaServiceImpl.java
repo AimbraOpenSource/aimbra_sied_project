@@ -3,6 +3,7 @@ package com.aimbra.sied.business.sied.services.impls;
 import com.aimbra.sied.business.sied.converters.AulaConverter;
 import com.aimbra.sied.business.sied.services.AtividadeService;
 import com.aimbra.sied.business.sied.services.AulaService;
+import com.aimbra.sied.business.zoom.services.ZMeetingService;
 import com.aimbra.sied.domain.sied.dtos.AtividadeDto;
 import com.aimbra.sied.domain.sied.dtos.AulaDto;
 import com.aimbra.sied.domain.sied.exceptions.AulaNotAuthorizedException;
@@ -22,6 +23,10 @@ public class AulaServiceImpl implements AulaService {
 
     @Autowired
     private AulaConverter converter;
+
+    @Qualifier("ZMeetingServiceImpl")
+    @Autowired
+    private ZMeetingService zMeetingService;
 
     @Qualifier(value = "atividadeServiceImpl")
     @Autowired
@@ -51,6 +56,7 @@ public class AulaServiceImpl implements AulaService {
 
     @Override
     public void deleteById(Integer id) {
+        zMeetingService.deleteByAulaId(id);
         atividadeService.deleteByAulaId(id);
         repository.deleteById(id);
     }

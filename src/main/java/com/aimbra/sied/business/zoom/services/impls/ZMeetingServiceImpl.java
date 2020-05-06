@@ -84,4 +84,22 @@ public class ZMeetingServiceImpl implements ZMeetingService {
 
         return meetingResponse;
     }
+
+    private void deleteInZoomServerById(BigInteger id) {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setInterceptors(List.of(zCredentialInterceptor));
+        restTemplate.delete(
+                credentials.getUrl() + "/meetings/" + id
+        );
+    }
+
+    @Override
+    public void deleteByAulaId(Integer aulaId) {
+        List<ZMeetingEntity> responses = zMeetingRepository.findAllByAulaId(aulaId);
+        if (responses != null && responses.size() > 0) {
+            responses.forEach(r -> deleteInZoomServerById(r.getId()));
+            zMeetingRepository.deleteAll(responses);
+        }
+    }
+
 }
