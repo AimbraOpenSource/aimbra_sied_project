@@ -26,8 +26,9 @@ public class ZAppConfigurationApi {
     private UserService userService;
 
     @GetMapping
-    public ResponseEntity<ZAppConfigurationDto> findById(@AuthenticationPrincipal UserDetails userDetails) {
-        return ResponseEntity.ok(service.findByUsername(userDetails.getUsername()));
+    public ResponseEntity<ZAppConfigurationDto> findByUsername(@AuthenticationPrincipal UserDetails userDetails) {
+        ZAppConfigurationDto byUsername = service.findByUsername(userDetails.getUsername());
+        return ResponseEntity.ok(byUsername);
     }
 
     @PostMapping

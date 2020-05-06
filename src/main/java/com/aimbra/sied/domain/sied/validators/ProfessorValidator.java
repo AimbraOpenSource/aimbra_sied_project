@@ -38,6 +38,5 @@ public class ProfessorValidator {
 
     public void cannotCreate(ProfessorDto professor) {
         nomeIsInvalid(professor.getNome());
-        userIsInvalid(professor.getUser());
     }
 }

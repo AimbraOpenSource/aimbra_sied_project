@@ -7,7 +7,7 @@ public abstract class MeetingBuild {
     public static ZMeetingRequestDto builderFromAulaDto(AulaDto aulaDto) {
         var meeting = new ZMeetingRequestDto();
         meeting.setAgenda(aulaDto.getReuniao().getDescricao());
-        meeting.setDuration(60);
+        meeting.setDuration(40);
         meeting.setPassword(aulaDto.getReuniao().getSenha());
         meeting.setStartTime(aulaDto.getReuniao().getDataHoraInicio().toString());
         meeting.setTimezone("America/Sao_Paulo");

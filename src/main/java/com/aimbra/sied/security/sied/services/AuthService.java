@@ -72,6 +72,7 @@ public class AuthService {
         UserEntity entity = UserBuilder.create(
                 user.getId(),
                 user.getUsername(),
+                user.getEmail(),
                 Utils.encodePassoword(user.getPassword()),
                 user.getRole(),
                 LocalDateTime.now(),

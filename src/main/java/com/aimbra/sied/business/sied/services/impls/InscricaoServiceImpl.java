@@ -47,7 +47,7 @@ public class InscricaoServiceImpl implements InscricaoService {
     public TurmaDto insertAlunoWithSenha(InscricaoDto inscricaoDto, String senhaTurma) {
         senhaTurmaEqualsTo(senhaTurma, inscricaoDto.getTurma());
 
-        var turma = new TurmaEntity();
+        var turma = turmaConverter.toEntity(inscricaoDto.getTurma());
         turma.addAluno(alunoConverter.toEntity(inscricaoDto.getAluno()));
 
         turma = turmaRepository.save(turma);

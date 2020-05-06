@@ -29,7 +29,7 @@ public class ZMeetingApi {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ZMeetingRequestDto> findAll(@PathVariable BigInteger id) {
+    public ResponseEntity<ZMeetingRequestDto> findById(@PathVariable BigInteger id) {
         return ResponseEntity.ok(zMeetingService.findById(id));
     }
 

@@ -14,7 +14,7 @@ public class ProfessorEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.MERGE)
     private UserEntity user;
 
     @Column(length = 64, nullable = false)

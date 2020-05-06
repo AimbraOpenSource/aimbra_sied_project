@@ -16,8 +16,8 @@ public abstract class SettingsBuild {
         settings.setMuteUponEntry(true);
         settings.setUsePmi(true);
         settings.setApprovalType(0);
-        settings.setAudio(true);
-        settings.setAutoRecording(false);
+        settings.setAudio("both");
+        settings.setAutoRecording("none");
         settings.setEnforceLogin(false);
         settings.setGlobalDialInCountries(new ArrayList<>());
         return settings;
