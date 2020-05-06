@@ -35,7 +35,7 @@ public class AtividadeValidator {
                 .whereMessageErrorIs("A descrição esta nula ou vazia")
                 .isNullOrEmpty()
                 .whereRangeLengthIs(40, 10000)
-                .whereMessageErrorIs("A descrição precisa ter entre 40 a 10000 caracteres")
+                .whereMessageErrorIs("A descrição da atividade precisa ter entre 40 a 10000 caracteres")
                 .hasInvalidLength()
                 .isValid();
     }

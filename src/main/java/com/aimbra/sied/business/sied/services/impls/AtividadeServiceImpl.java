@@ -1,6 +1,7 @@
 package com.aimbra.sied.business.sied.services.impls;
 
 import com.aimbra.sied.business.sied.converters.AtividadeConverter;
+import com.aimbra.sied.business.sied.converters.AulaConverter;
 import com.aimbra.sied.business.sied.services.AtividadeService;
 import com.aimbra.sied.business.sied.services.AulaService;
 import com.aimbra.sied.business.sied.services.ReuniaoService;
@@ -10,13 +11,16 @@ import com.aimbra.sied.domain.sied.dtos.AtividadeDto;
 import com.aimbra.sied.domain.sied.dtos.ReuniaoDto;
 import com.aimbra.sied.domain.sied.dtos.TurmaDto;
 import com.aimbra.sied.domain.sied.entities.AtividadeEntity;
+import com.aimbra.sied.domain.sied.entities.AulaEntity;
 import com.aimbra.sied.domain.sied.exceptions.AtividadeNotFoundException;
 import com.aimbra.sied.domain.zoom.builders.MeetingBuild;
 import com.aimbra.sied.domain.zoom.dtos.ZMeetingResponseDto;
 import com.aimbra.sied.infra.repositories.AtividadeRepository;
+import com.aimbra.sied.infra.repositories.AulaRepository;
 import com.aimbra.sied.infra.repositories.TurmaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
@@ -28,6 +32,9 @@ public class AtividadeServiceImpl implements AtividadeService, Serializable {
 
     @Autowired
     private AtividadeRepository repository;
+
+    @Autowired
+    private AulaRepository aulaRepository;
 
     @Autowired
     private AtividadeConverter converter;
@@ -47,17 +54,14 @@ public class AtividadeServiceImpl implements AtividadeService, Serializable {
 
     @Override
     public AtividadeDto insert(AtividadeDto atividadeDto) {
-        TurmaDto turmaDto = turmaService.findById(atividadeDto.getAula().getTurma().getId());
-        atividadeDto.getAula().setTurma(turmaDto);
-
-        atividadeDto.setCriadoEm(LocalDateTime.now());
-        atividadeDto.setTitulo(atividadeDto.getAula().getTitulo());
-
         boolean temAulaAuVivo = atividadeDto.getConfiguracao().getTemAulaAoVivo();
         if (temAulaAuVivo) {
             ZMeetingResponseDto zMeetingResponseDto = meetingService.create(MeetingBuild.builderFromAulaDto(atividadeDto.getAula()));
             atividadeDto.getReuniao().setLink(zMeetingResponseDto.getJoinUrl());
         }
+
+        AulaEntity aulaEntity = aulaRepository.save(new AulaConverter().toEntity(atividadeDto.getAula()));
+        atividadeDto.setAula(new AulaConverter().toDto(aulaEntity));
 
         AtividadeEntity entity = converter.toEntity(atividadeDto);
         return converter.toDto(repository.save(entity));

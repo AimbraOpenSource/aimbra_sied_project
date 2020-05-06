@@ -26,14 +26,16 @@ public class TurmaValidator {
     private ProfessorValidator professorValidator;
 
     private void senhaIsInvalid(String senha) {
-        textValidator
-            .whereValueIs(senha)
-            .whereMessageErrorIs("A Senha esta nula ou vazia")
-            .isNullOrEmpty()
-            .whereFixedLentghIs(6)
-            .whereMessageErrorIs("A senha precisa ter 6 caracteres")
-            .sizeIsNotIqualsTo()
-            .isValid();
+        if (senha != null) {
+            textValidator
+                .whereValueIs(senha)
+                .whereMessageErrorIs("A Senha esta vazia")
+                .isEmpty()
+                .whereFixedLentghIs(6)
+                .whereMessageErrorIs("A senha precisa ter 6 caracteres")
+                .sizeIsNotIqualsTo()
+                .isValid();
+        }
     }
 
     private void cursoIsInvalid(CursoDto curso) {

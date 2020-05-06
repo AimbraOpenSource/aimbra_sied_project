@@ -2,10 +2,12 @@ package com.aimbra.sied.application.sied.apis.v1;
 
 import com.aimbra.sied.business.sied.services.AtividadeService;
 import com.aimbra.sied.business.sied.services.FileService;
+import com.aimbra.sied.business.sied.services.TurmaService;
 import com.aimbra.sied.business.sied.services.UserService;
 import com.aimbra.sied.business.sied.services.impls.UserServiceImpl;
 import com.aimbra.sied.domain.sied.dtos.AtividadeDto;
 import com.aimbra.sied.domain.sied.dtos.RecursoDto;
+import com.aimbra.sied.domain.sied.dtos.TurmaDto;
 import com.aimbra.sied.domain.sied.utils.DateDeserializer;
 import com.aimbra.sied.domain.sied.validators.AtividadeValidator;
 import com.aimbra.sied.security.sied.dtos.UserDto;
@@ -20,6 +22,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -45,6 +48,10 @@ public class AtividadeApi {
 
     @Autowired
     private AtividadeValidator atividadeValidator;
+
+    @Qualifier("turmaServiceImpl")
+    @Autowired
+    private TurmaService turmaService;
 
     @GetMapping
     public ResponseEntity<List<AtividadeDto>> findAll() {
@@ -73,6 +80,12 @@ public class AtividadeApi {
         UserDto userDto = userService.findByUsername(userDetails.getUsername());
         Gson gson = dateDeserializer.deserialize().create();
         AtividadeDto atividadeDto = gson.fromJson(atividade, AtividadeDto.class);
+
+        atividadeDto.getReuniao().setDescricao(atividadeDto.getDescricao());
+
+        TurmaDto turmaDto = turmaService.findById(atividadeDto.getAula().getTurma().getId());
+        atividadeDto.getAula().setTurma(turmaDto);
+
 
         atividadeValidator.cannotCreate(atividadeDto);
 

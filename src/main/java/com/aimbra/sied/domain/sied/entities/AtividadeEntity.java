@@ -26,7 +26,7 @@ public class AtividadeEntity {
     @Column(nullable = false)
     private LocalDateTime liberadoEm;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private AulaEntity aula;
 
 }

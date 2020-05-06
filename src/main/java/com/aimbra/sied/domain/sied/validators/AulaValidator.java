@@ -41,10 +41,10 @@ public class AulaValidator {
     private void descricaoIsInvalid(String descricao) {
         textValidator
                 .whereValueIs(descricao)
-                .whereMessageErrorIs("A descrição esta nula ou vazia")
+                .whereMessageErrorIs("A descrição da aulaesta nula ou vazia")
                 .isNullOrEmpty()
                 .whereRangeLengthIs(50, 10000)
-                .whereMessageErrorIs("A descrição precisa ter entre 50 a 10000 cracteres")
+                .whereMessageErrorIs("A descrição da aula precisa ter entre 50 a 10000 cracteres")
                 .hasInvalidLength()
                 .isValid();
     }
@@ -65,10 +65,10 @@ public class AulaValidator {
         if (observacao != null && observacao.isEmpty()) {
             textValidator
                 .whereValueIs(observacao)
-                .whereMessageErrorIs("A descrição esta nula ou vazia")
+                .whereMessageErrorIs("A observação da aula esta nula ou vazia")
                 .isNullOrEmpty()
                 .whereRangeLengthIs(50, 10000)
-                .whereMessageErrorIs("A descrição precisa ter entre 50 a 10000 cracteres")
+                .whereMessageErrorIs("A Observação da aula precisa ter entre 50 a 10000 cracteres")
                 .hasInvalidLength()
                 .isValid();
         }
@@ -100,9 +100,9 @@ public class AulaValidator {
         descricaoIsInvalid(dto.getDescricao());
         urlIsInvalid(dto.getUrlVideoGravado());
         observacaoIsInvalid(dto.getObservacao());
-        turmaIsInvalid(dto.getTurma());
+//        turmaIsInvalid(dto.getTurma());
         aulaConfiguracaoIsInvalid(dto.getConfiguracao());
-        reuniaoIsInvalid(dto.getReuniao());
+//        reuniaoIsInvalid(dto.getReuniao());
     }
 
     public void cannotFind(Integer valueId) {
