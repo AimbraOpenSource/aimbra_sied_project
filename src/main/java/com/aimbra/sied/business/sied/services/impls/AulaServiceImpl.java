@@ -52,6 +52,7 @@ public class AulaServiceImpl implements AulaService {
     @Override
     public void deleteById(Integer id) {
         atividadeService.deleteByAulaId(id);
+        repository.deleteById(id);
     }
 
     @Override
