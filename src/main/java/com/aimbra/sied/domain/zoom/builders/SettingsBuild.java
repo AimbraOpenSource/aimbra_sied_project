@@ -14,12 +14,14 @@ public abstract class SettingsBuild {
         settings.setInMeeting(false);
         settings.setJoinBeforeHost(true);
         settings.setMuteUponEntry(true);
+        settings.setWatermark(true);
         settings.setUsePmi(true);
-        settings.setApprovalType(0);
+        settings.setApprovalType(null);
         settings.setAudio("both");
         settings.setAutoRecording("none");
         settings.setEnforceLogin(false);
         settings.setGlobalDialInCountries(new ArrayList<>());
+        settings.setRegistrantsEmailNotification(false);
         return settings;
     }
 }
