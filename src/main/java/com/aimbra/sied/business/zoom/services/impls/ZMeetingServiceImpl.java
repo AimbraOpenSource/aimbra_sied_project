@@ -71,6 +71,8 @@ public class ZMeetingServiceImpl implements ZMeetingService {
         restTemplate.setInterceptors(List.of(zCredentialInterceptor));
         List<ZUserDto> zUsers = zUserService.findAll();
         String userId = zUsers.get(0).getId();
+
+
         ZMeetingResponseDto meetingResponse = restTemplate.postForObject(
                 credentials.getUrl() + "/users/"+userId +"/meetings",
                 dto,
@@ -100,6 +102,23 @@ public class ZMeetingServiceImpl implements ZMeetingService {
             responses.forEach(r -> deleteInZoomServerById(r.getId()));
             zMeetingRepository.deleteAll(responses);
         }
+    }
+
+    @Override
+    public ZMeetingResponseDto update(ZMeetingRequestDto mettingDto) {
+        mettingDto = findById(mettingDto.getId());
+        if (mettingDto != null) {
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.setInterceptors(List.of(zCredentialInterceptor));
+            ZMeetingResponseDto zMeetingResponseDto = restTemplate.patchForObject(
+                    credentials.getUrl() + "/meetings/" + mettingDto.getId(),
+                    mettingDto,
+                    ZMeetingResponseDto.class
+            );
+            ZMeetingEntity objUpdated = zMeetingRepository.save(zMeetingConverter.toEntity(zMeetingResponseDto));
+            return zMeetingConverter.toDto(objUpdated);
+        }
+        return null;
     }
 
 }

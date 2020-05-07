@@ -97,4 +97,31 @@ public class AtividadeApi {
         }
         return ResponseEntity.ok(atividadeDto);
     }
+
+    @PatchMapping @Transactional
+    public ResponseEntity<?> update(
+            @RequestParam MultipartFile[] files,
+            @RequestParam String atividade,
+            ModelMap modelMap,
+            @AuthenticationPrincipal UserDetails userDetails) {
+        UserDto userDto = userService.findByUsername(userDetails.getUsername());
+        Gson gson = dateDeserializer.deserialize().create();
+        AtividadeDto atividadeDto = gson.fromJson(atividade, AtividadeDto.class);
+
+        atividadeDto.getReuniao().setDescricao(atividadeDto.getDescricao());
+
+        TurmaDto turmaDto = turmaService.findById(atividadeDto.getAula().getTurma().getId());
+        atividadeDto.getAula().setTurma(turmaDto);
+
+
+        atividadeValidator.cannotCreate(atividadeDto);
+
+        AtividadeDto response = service.update(atividadeDto);
+        Set<RecursoDto> recursos = new HashSet<>();
+        for(int i = 0; i < files.length; i++) {
+            RecursoDto recursoResponse = fileService.savePerguntaDoProfessor(files[i], response.getAula(), userDto);
+            recursos.add(recursoResponse);
+        }
+        return ResponseEntity.ok(atividadeDto);
+    }
 }

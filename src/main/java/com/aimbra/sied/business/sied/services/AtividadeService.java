@@ -12,4 +12,6 @@ public interface AtividadeService {
     AtividadeDto findById(Integer id);
     AtividadeDto findByAulaId(Integer id);
     void deleteByAulaId(Integer aulaId);
+
+    AtividadeDto update(AtividadeDto atividadeDto);
 }

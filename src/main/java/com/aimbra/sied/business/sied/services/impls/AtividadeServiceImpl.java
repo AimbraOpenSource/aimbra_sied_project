@@ -87,4 +87,25 @@ public class AtividadeServiceImpl implements AtividadeService, Serializable {
     public void deleteByAulaId(Integer aulaId) {
         repository.removeByAula_Id(aulaId);
     }
+
+    @Override
+    public AtividadeDto update(AtividadeDto atividadeDto) {
+        var temAulaAuVivo = atividadeDto.getConfiguracao().getTemAulaAoVivo();
+
+        ZMeetingResponseDto zMeetingResponseDto;
+        AulaEntity aulaEntity = new AulaConverter().toEntity(atividadeDto.getAula());
+        if (temAulaAuVivo) {
+            if (aulaEntity.getMettings() != null && aulaEntity.getMettings().size() > 0) {
+                zMeetingResponseDto = meetingService.update(MeetingBuild.builderFromAulaDto(atividadeDto.getAula()));
+                atividadeDto.getReuniao().setLink(zMeetingResponseDto.getJoinUrl());
+                aulaEntity.setMettings(List.of(new ZMeetingConverter().toEntity(zMeetingResponseDto)));
+            }
+        }
+
+        aulaEntity = aulaRepository.save(aulaEntity);
+        atividadeDto.setAula(new AulaConverter().toDto(aulaEntity));
+
+        AtividadeEntity entity = converter.toEntity(atividadeDto);
+        return converter.toDto(repository.save(entity));
+    }
 }

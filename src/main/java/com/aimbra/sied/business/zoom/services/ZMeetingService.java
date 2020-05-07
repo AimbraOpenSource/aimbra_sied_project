@@ -15,4 +15,6 @@ public interface ZMeetingService {
     ZMeetingResponseDto create(ZMeetingRequestDto dto);
 
     void deleteByAulaId(Integer id);
+
+    ZMeetingResponseDto update(ZMeetingRequestDto builderFromAulaDto);
 }

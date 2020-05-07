@@ -89,7 +89,7 @@ public class RespostaValidator {
         criadoEmIsInvalid(dto.getCriadoEm());
         atualizadoEmIsInvalid(dto.getAtualizadoEm());
         atividadeIsInvalid(dto.getAtividade());
-        alunoIsInvalid(dto.getAluno());
+//        alunoIsInvalid(dto.getAluno());
     }
 
     public void cannotFindById(Integer id) {
